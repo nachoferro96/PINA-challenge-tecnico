@@ -4,6 +4,53 @@ MVP de un panel móvil de tareas desarrollado para el challenge técnico de Reac
 
 > Proyecto demostrativo. No utiliza datos, servicios, logotipos ni activos oficiales de Real Plaza.
 
+## Inicio rápido
+
+### iOS — plataforma principal validada
+
+Requiere macOS, Xcode 16.3 o compatible, un runtime de iOS instalado y CocoaPods.
+
+```bash
+npm install
+bundle install
+npm run ios:pods
+```
+
+En una terminal, iniciar Metro:
+
+```bash
+npm start
+```
+
+En otra terminal, ejecutar el simulador:
+
+```bash
+npm run ios
+```
+
+### Android — mismo repositorio
+
+Requiere JDK 17, Android Studio/SDK y un emulador o dispositivo iniciado.
+
+```bash
+npm install
+npm start
+```
+
+En otra terminal:
+
+```bash
+npm run android
+```
+
+Para compilar el APK debug sin abrir el emulador:
+
+```bash
+npm run android:build
+```
+
+En iOS se debe abrir `ios/RealPlazaTasks.xcworkspace`, nunca el `.xcodeproj`, después de instalar Pods.
+
 ## Alcance
 
 - 12 tareas mock que cubren todos los estados y prioridades requeridos.
@@ -61,7 +108,9 @@ En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, despu
 - Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
 - iOS: compilado y ejecutado en iPhone 16 Pro Simulator con iOS 18.4 y Xcode 16.3. Se verificaron lista, filtros combinados, detalle, Back nativo, estadísticas, carga, error, vacío, sin resultados, modo oscuro y Dynamic Type.
 
-Limitación visual conocida: en la raíz iOS, el contador y el resumen por estado existen y son accesibles, pero quedan ocultos bajo el `large title` por el ajuste de inset inicial del `FlatList`. El resto del flujo funciona; este ajuste debe resolverse antes de presentar la primera vista como completamente validada en iOS.
+El ajuste de inset bajo el `large title` de iOS fue corregido con el comportamiento automático del `FlatList` y validado nuevamente desde un lanzamiento limpio. El contador, el resumen, los filtros y la lista quedan visibles desde la primera vista.
+
+En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, vacío y error; el estado de carga aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
 
 ## Calidad
 
@@ -83,7 +132,6 @@ flowchart LR
   C --> S["Selectores derivados"]
   C --> P["TaskRepository"]
   P --> M["MockTaskRepository"]
-  P -. "extensión futura" .-> H["HttpTaskRepository"]
   M --> D["mockTasks"]
   S --> UI
 ```
@@ -100,7 +148,7 @@ src/
 └── shared                  # tema y utilidades transversales
 ```
 
-`Context + useReducer` mantiene explícitos los eventos de un único dominio sin incorporar el coste de una librería global. `TaskRepository` separa la fuente de datos de la interfaz; reemplazar el mock por HTTP no requiere cambiar pantallas. Filtros y estadísticas son datos derivados para evitar sincronización y duplicación de estado.
+`Context + useReducer` mantiene explícitos los eventos de un único dominio sin incorporar el coste de una librería global. `TaskRepository` separa la fuente de datos mock de la interfaz y permite ampliar el flujo local sin acoplarlo a las pantallas. Filtros y estadísticas son datos derivados para evitar sincronización y duplicación de estado.
 
 ## Modelo mock
 
@@ -120,6 +168,7 @@ Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `
 - [Producto](PRODUCT.md)
 - [Sistema de diseño](DESIGN.md)
 - Skill local para ampliaciones: `.agents/skills/extend-real-plaza-tasks/SKILL.md`
+- [Guía de `feature/plus`](docs/feature-plus-guide.md)
 
 ## Uso de IA
 

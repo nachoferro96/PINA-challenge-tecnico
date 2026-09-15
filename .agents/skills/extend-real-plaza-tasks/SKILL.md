@@ -1,6 +1,6 @@
 ---
 name: extend-real-plaza-tasks
-description: Ampliar, mantener o integrar un backend en la aplicación React Native RealPlazaTasks conservando su arquitectura, alcance, estados de interfaz y trazabilidad. Usar al agregar API REST, mutaciones, autenticación, caché, nuevas pantallas, filtros, tests o cambios de plataforma dentro de este repositorio.
+description: Ampliar y mantener la aplicación React Native RealPlazaTasks conservando su arquitectura, alcance, estados de interfaz y trazabilidad. Usar al agregar funcionalidades locales, mutaciones en memoria, nuevas pantallas, filtros, tests o cambios de plataforma dentro de este repositorio.
 ---
 
 # Extender RealPlazaTasks
@@ -16,24 +16,23 @@ description: Ampliar, mantener o integrar un backend en la aplicación React Nat
 ## Conservar las fronteras
 
 - Mantener tipos y reglas de tareas en `features/tasks/domain`.
-- Acceder a datos mediante `TaskRepository`; no llamar HTTP desde pantallas, componentes ni reducers.
+- Acceder a datos mediante `TaskRepository`; mantener la fuente mock y no incorporar backend.
 - Derivar filtros y estadísticas desde las tareas cargadas; no duplicar esos resultados en estado mutable.
 - Mantener componentes sin conocimiento del origen mock o remoto.
 - Respetar navegación, safe areas, tamaño de texto, modo oscuro y objetivos táctiles de cada plataforma.
 - No incorporar una dependencia si una solución nativa pequeña cubre el caso; justificar cada dependencia nueva.
 
-## Integrar un backend
+## Mantener la fuente local
 
-1. Extender `TaskRepository` sólo con operaciones requeridas por el caso de uso.
-2. Implementar `HttpTaskRepository` detrás de esa interfaz.
-3. Mapear DTOs externos a tipos de dominio en la capa `data`; rechazar datos inválidos allí.
+1. Extender `TaskRepository` sólo con operaciones locales requeridas por el caso de uso.
+2. Conservar `MockTaskRepository` para pruebas y escenarios demostrativos.
+3. Mantener las mutaciones en `TaskContext`/reducer y derivar filtros o estadísticas desde el estado.
 4. Inyectar la implementación en `App.tsx` o en un proveedor de composición, nunca dentro de la UI.
-5. Conservar `MockTaskRepository` para pruebas y escenarios demostrativos.
-6. Definir timeout, cancelación, errores recuperables y política de reintento antes de incorporar caché.
+5. No añadir autenticación, sincronización remota ni persistencia sin una decisión explícita fuera del alcance actual.
 
 ## Agregar mutaciones
 
-No asumir que CRUD significa cuatro pantallas. Confirmar primero operaciones, reglas de validación, persistencia, concurrencia y recuperación de errores. Modelar acciones del reducer como eventos del dominio y cubrir éxito, error y actualización optimista si corresponde.
+No asumir que CRUD significa cuatro pantallas. Confirmar primero operaciones, reglas de validación y recuperación de errores en memoria. Modelar acciones del reducer como eventos del dominio y cubrir éxito, error y actualización optimista si corresponde.
 
 ## Validar
 
@@ -54,4 +53,3 @@ xcodebuild -workspace ios/RealPlazaTasks.xcworkspace -scheme RealPlazaTasks -con
 ```
 
 Registrar por separado “compila” y “fue ejecutada en emulador/dispositivo”; no presentarlos como la misma evidencia.
-

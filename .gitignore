@@ -67,6 +67,7 @@ yarn-error.log
 /coverage
 
 # Local design exploration and review evidence
+.impeccable/*.json
 .impeccable/mocks/
 .impeccable/review/
 .impeccable/questions/

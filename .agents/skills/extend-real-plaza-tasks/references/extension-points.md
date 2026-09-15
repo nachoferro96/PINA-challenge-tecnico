@@ -7,7 +7,7 @@
 ## Ubicaciones
 
 - `src/features/tasks/domain`: tipos e interfaz del repositorio.
-- `src/features/tasks/data`: datos mock y futuras implementaciones externas.
+- `src/features/tasks/data`: datos mock y fuentes locales de prueba.
 - `src/features/tasks/state`: reducer, contexto y selectores.
 - `src/features/tasks/components`: piezas visuales reutilizables.
 - `src/features/tasks/screens`: composición y navegación de cada vista.
@@ -23,9 +23,9 @@
 
 ## Preguntas antes de crecer
 
-- ¿El servidor usa los mismos estados o requiere un mapper?
-- ¿Quién es dueño de fechas, zona horaria y ordenamiento?
-- ¿Una mutación debe ser optimista y cómo se revierte?
-- ¿Qué datos pueden cachearse y durante cuánto tiempo?
-- ¿La autenticación cambia el dominio a múltiples usuarios?
+- ¿La feature necesita extender el dominio o sólo agregar un selector?
+- ¿Quién es dueño de fechas, zona horaria y ordenamiento local?
+- ¿Una mutación debe ser optimista y cómo se revierte en memoria?
+- ¿Qué ocurre al cerrar o recargar la app?
+- ¿La feature conserva el alcance de una sesión y un único usuario?
 - ¿El cambio fue probado en iOS, Android o sólo compilado?

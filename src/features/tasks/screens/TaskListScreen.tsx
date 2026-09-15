@@ -147,18 +147,10 @@ export function TaskListScreen({
     </View>
   );
 
-  if (isLoading || state.loadStatus === 'idle') {
-    return (
-      <View style={[styles.screen, {backgroundColor: colors.background, paddingTop: Platform.OS === 'ios' ? spacing.md : insets.top + spacing.md}]}>
-        {header}
-        <TaskLoadingState />
-      </View>
-    );
-  }
-
   return (
     <FlatList
       style={{backgroundColor: colors.background}}
+      contentInsetAdjustmentBehavior={Platform.OS === 'ios' ? 'automatic' : 'never'}
       contentContainerStyle={[
         styles.content,
         {
@@ -166,7 +158,7 @@ export function TaskListScreen({
           paddingBottom: insets.bottom + spacing.xl,
         },
       ]}
-      data={state.filteredTasks}
+      data={isLoading || state.loadStatus === 'idle' ? [] : state.filteredTasks}
       keyExtractor={item => item.id}
       renderItem={({item}) => (
         <TaskRow
@@ -176,7 +168,9 @@ export function TaskListScreen({
       )}
       ListHeaderComponent={header}
       ListEmptyComponent={
-        state.loadStatus === 'error' ? (
+        isLoading || state.loadStatus === 'idle' ? (
+          <TaskLoadingState />
+        ) : state.loadStatus === 'error' ? (
           <TaskScreenState kind="error" message={state.errorMessage} onAction={reload} />
         ) : state.tasks.length === 0 ? (
           <TaskScreenState kind="empty" onAction={reload} />
@@ -198,7 +192,6 @@ export function TaskListScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: {flex: 1, paddingHorizontal: spacing.lg},
   content: {paddingHorizontal: spacing.lg, flexGrow: 1},
   topRow: {flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: spacing.md},
   heading: {fontSize: 28, lineHeight: 36, fontWeight: '700', letterSpacing: -0.4},
