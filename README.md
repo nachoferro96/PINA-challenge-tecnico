@@ -59,7 +59,9 @@ En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, despu
 ### Estado real de validación
 
 - Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
-- iOS: dependencias CocoaPods y codegen instalados correctamente con Xcode 16.3. La compilación/ejecución queda pendiente hasta que termine de instalarse el runtime iOS 18.4 en esta Mac. No se declara validación visual iOS sin esa evidencia.
+- iOS: compilado y ejecutado en iPhone 16 Pro Simulator con iOS 18.4 y Xcode 16.3. Se verificaron lista, filtros combinados, detalle, Back nativo, estadísticas, carga, error, vacío, sin resultados, modo oscuro y Dynamic Type.
+
+Limitación visual conocida: en la raíz iOS, el contador y el resumen por estado existen y son accesibles, pero quedan ocultos bajo el `large title` por el ajuste de inset inicial del `FlatList`. El resto del flujo funciona; este ajuste debe resolverse antes de presentar la primera vista como completamente validada en iOS.
 
 ## Calidad
 
