@@ -1,0 +1,148 @@
+import type {Task} from '../domain/task';
+
+export const mockTasks: readonly Task[] = [
+  {
+    id: 'task-001',
+    title: 'Revisar señalización del acceso norte',
+    description:
+      'Validar que la señalización temporal sea visible y registrar cualquier elemento que requiera reposición.',
+    status: 'pending',
+    priority: 'high',
+    area: 'Acceso norte',
+    assignee: 'Andrea Salazar',
+    dueAt: '2026-09-14T14:30:00-03:00',
+    createdAt: '2026-09-12T09:15:00-03:00',
+  },
+  {
+    id: 'task-002',
+    title: 'Verificar funcionamiento de ascensores',
+    description:
+      'Completar la ronda operativa, comprobar indicadores y dejar constancia de cualquier anomalía.',
+    status: 'inProgress',
+    priority: 'medium',
+    area: 'Torre A',
+    assignee: 'Luis Mendoza',
+    dueAt: '2026-09-14T12:00:00-03:00',
+    createdAt: '2026-09-13T08:20:00-03:00',
+  },
+  {
+    id: 'task-003',
+    title: 'Inspeccionar baños públicos del primer nivel',
+    description:
+      'Revisar limpieza, disponibilidad de insumos y funcionamiento general antes del siguiente turno.',
+    status: 'pending',
+    priority: 'medium',
+    area: 'Zona central',
+    assignee: 'Camila Rojas',
+    dueAt: '2026-09-14T11:00:00-03:00',
+    createdAt: '2026-09-14T07:00:00-03:00',
+  },
+  {
+    id: 'task-004',
+    title: 'Revisar iluminación del estacionamiento',
+    description:
+      'Recorrer el sótano uno y reportar luminarias apagadas o con funcionamiento intermitente.',
+    status: 'pending',
+    priority: 'high',
+    area: 'Sótano 1',
+    assignee: 'Diego Paredes',
+    dueAt: '2026-09-14T16:00:00-03:00',
+    createdAt: '2026-09-12T16:40:00-03:00',
+  },
+  {
+    id: 'task-005',
+    title: 'Controlar limpieza en zona de comidas',
+    description:
+      'Confirmar el cumplimiento de la pauta de limpieza y registrar observaciones del recorrido.',
+    status: 'inProgress',
+    priority: 'low',
+    area: 'Zona de comidas',
+    assignee: 'Valeria Torres',
+    dueAt: '2026-09-14T13:00:00-03:00',
+    createdAt: '2026-09-14T08:00:00-03:00',
+  },
+  {
+    id: 'task-006',
+    title: 'Verificar extintores y gabinetes',
+    description:
+      'Confirmar acceso libre, precintos vigentes y señalización visible en los puntos del recorrido.',
+    status: 'pending',
+    priority: 'low',
+    area: 'Todo el centro',
+    assignee: 'Martín Vega',
+    dueAt: '2026-09-14T15:00:00-03:00',
+    createdAt: '2026-09-11T10:30:00-03:00',
+  },
+  {
+    id: 'task-007',
+    title: 'Registrar temperatura de cámaras de frío',
+    description:
+      'Comparar las lecturas con el rango operativo y adjuntar la observación al registro del turno.',
+    status: 'completed',
+    priority: 'low',
+    area: 'Cuarto técnico',
+    assignee: 'Sofía Núñez',
+    dueAt: '2026-09-14T10:00:00-03:00',
+    createdAt: '2026-09-14T06:30:00-03:00',
+  },
+  {
+    id: 'task-008',
+    title: 'Coordinar mantenimiento de escalera eléctrica',
+    description:
+      'Validar el perímetro de seguridad y acompañar la revisión preventiva del proveedor.',
+    status: 'inProgress',
+    priority: 'high',
+    area: 'Ingreso principal',
+    assignee: 'Pedro Arias',
+    dueAt: '2026-09-14T17:30:00-03:00',
+    createdAt: '2026-09-10T12:00:00-03:00',
+  },
+  {
+    id: 'task-009',
+    title: 'Cerrar reporte de incidencias del turno',
+    description:
+      'Consolidar las observaciones registradas y confirmar que cada incidencia tenga responsable.',
+    status: 'completed',
+    priority: 'medium',
+    area: 'Administración',
+    assignee: 'Gabriela León',
+    dueAt: '2026-09-13T18:00:00-03:00',
+    createdAt: '2026-09-13T07:00:00-03:00',
+  },
+  {
+    id: 'task-010',
+    title: 'Confirmar protocolo de apertura',
+    description:
+      'Verificar que seguridad, limpieza y atención hayan completado los puntos críticos de apertura.',
+    status: 'completed',
+    priority: 'medium',
+    area: 'Operaciones',
+    assignee: 'Renzo Castillo',
+    dueAt: '2026-09-14T09:00:00-03:00',
+    createdAt: '2026-09-14T06:00:00-03:00',
+  },
+  {
+    id: 'task-011',
+    title: 'Actualizar inventario de radios',
+    description:
+      'Contrastar radios entregados y disponibles antes del relevo del equipo de seguridad.',
+    status: 'inProgress',
+    priority: 'medium',
+    area: 'Seguridad',
+    assignee: 'Mariana Díaz',
+    dueAt: '2026-09-14T18:00:00-03:00',
+    createdAt: '2026-09-13T15:10:00-03:00',
+  },
+  {
+    id: 'task-012',
+    title: 'Revisar directorio de locales',
+    description:
+      'Comparar el directorio digital con el listado vigente y registrar diferencias para actualización.',
+    status: 'completed',
+    priority: 'low',
+    area: 'Información',
+    assignee: 'Nicolás Flores',
+    dueAt: '2026-09-13T16:00:00-03:00',
+    createdAt: '2026-09-12T13:45:00-03:00',
+  },
+];

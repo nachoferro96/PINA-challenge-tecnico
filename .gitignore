@@ -66,6 +66,11 @@ yarn-error.log
 # testing
 /coverage
 
+# Local design exploration and review evidence
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/questions/
+
 # Yarn
 .yarn/*
 !.yarn/patches

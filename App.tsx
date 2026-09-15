@@ -1,45 +1,57 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {useMemo, useState} from 'react';
+import {StatusBar} from 'react-native';
+import {NavigationContainer, DarkTheme, DefaultTheme} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import {AppNavigator} from './src/app/navigation/AppNavigator';
 import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+  MockTaskRepository,
+  type MockScenario,
+} from './src/features/tasks/data/MockTaskRepository';
+import {TaskProvider} from './src/features/tasks/state/TaskContext';
+import {useAppTheme} from './src/shared/theme/theme';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <AppContent />
     </SafeAreaProvider>
   );
 }
 
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  const [scenario, setScenario] = useState<MockScenario>('normal');
+  const {colors, isDark} = useAppTheme();
+  const repository = useMemo(
+    () => new MockTaskRepository({scenario, latencyMs: 700}),
+    [scenario],
+  );
+  const navigationTheme = useMemo(
+    () => ({
+      ...(isDark ? DarkTheme : DefaultTheme),
+      colors: {
+        ...(isDark ? DarkTheme.colors : DefaultTheme.colors),
+        primary: colors.accent,
+        background: colors.background,
+        card: colors.background,
+        text: colors.text,
+        border: colors.divider,
+      },
+    }),
+    [colors, isDark],
+  );
 
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
+    <TaskProvider repository={repository}>
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor={colors.background}
       />
-    </View>
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator scenario={scenario} onScenarioChange={setScenario} />
+      </NavigationContainer>
+    </TaskProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
