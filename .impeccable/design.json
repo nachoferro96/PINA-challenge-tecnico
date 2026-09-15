@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T01:07:15Z",
+  "title": "Design System: Tareas Real Plaza",
+  "extensions": {
+    "colorMeta": {
+      "light-background": {"role": "neutral", "displayName": "Papel frío", "tonalRamp": ["oklch(15% 0.004 250)", "oklch(27% 0.004 250)", "oklch(39% 0.004 250)", "oklch(51% 0.004 250)", "oklch(63% 0.004 250)", "oklch(75% 0.004 250)", "oklch(87% 0.004 250)", "oklch(98% 0.004 250)"]},
+      "light-surface": {"role": "neutral", "displayName": "Niebla de control", "tonalRamp": ["oklch(15% 0.008 250)", "oklch(27% 0.008 250)", "oklch(39% 0.008 250)", "oklch(51% 0.008 250)", "oklch(63% 0.008 250)", "oklch(75% 0.008 250)", "oklch(87% 0.008 250)", "oklch(96% 0.008 250)"]},
+      "light-surface-strong": {"role": "neutral", "displayName": "Niebla marcada", "tonalRamp": ["oklch(15% 0.012 250)", "oklch(27% 0.012 250)", "oklch(39% 0.012 250)", "oklch(51% 0.012 250)", "oklch(63% 0.012 250)", "oklch(75% 0.012 250)", "oklch(87% 0.012 250)", "oklch(95% 0.012 250)"]},
+      "light-text": {"role": "neutral", "displayName": "Tinta operativa", "tonalRamp": ["oklch(15% 0.018 250)", "oklch(27% 0.018 250)", "oklch(39% 0.018 250)", "oklch(51% 0.018 250)", "oklch(63% 0.018 250)", "oklch(75% 0.018 250)", "oklch(87% 0.018 250)", "oklch(95% 0.018 250)"]},
+      "light-text-secondary": {"role": "neutral", "displayName": "Texto secundario", "tonalRamp": ["oklch(15% 0.018 250)", "oklch(27% 0.018 250)", "oklch(39% 0.018 250)", "oklch(51% 0.018 250)", "oklch(63% 0.018 250)", "oklch(75% 0.018 250)", "oklch(87% 0.018 250)", "oklch(95% 0.018 250)"]},
+      "light-divider": {"role": "neutral", "displayName": "Regla tenue", "tonalRamp": ["oklch(15% 0.009 250)", "oklch(27% 0.009 250)", "oklch(39% 0.009 250)", "oklch(51% 0.009 250)", "oklch(63% 0.009 250)", "oklch(75% 0.009 250)", "oklch(87% 0.009 250)", "oklch(95% 0.009 250)"]},
+      "light-accent": {"role": "primary", "displayName": "Carmesí operativo", "tonalRamp": ["oklch(15% 0.10 20)", "oklch(27% 0.15 20)", "oklch(39% 0.19 20)", "oklch(51% 0.21 20)", "oklch(63% 0.18 20)", "oklch(75% 0.13 20)", "oklch(87% 0.07 20)", "oklch(95% 0.03 20)"]},
+      "light-accent-soft": {"role": "primary", "displayName": "Rubor operativo", "tonalRamp": ["oklch(15% 0.10 20)", "oklch(27% 0.15 20)", "oklch(39% 0.19 20)", "oklch(51% 0.21 20)", "oklch(63% 0.18 20)", "oklch(75% 0.13 20)", "oklch(87% 0.07 20)", "oklch(95% 0.03 20)"]},
+      "light-warning": {"role": "secondary", "displayName": "Ámbar de seguimiento", "tonalRamp": ["oklch(15% 0.08 75)", "oklch(27% 0.12 75)", "oklch(39% 0.15 75)", "oklch(51% 0.16 75)", "oklch(63% 0.15 75)", "oklch(75% 0.11 75)", "oklch(87% 0.06 75)", "oklch(95% 0.03 75)"]},
+      "light-warning-soft": {"role": "secondary", "displayName": "Ámbar velado", "tonalRamp": ["oklch(15% 0.08 75)", "oklch(27% 0.12 75)", "oklch(39% 0.15 75)", "oklch(51% 0.16 75)", "oklch(63% 0.15 75)", "oklch(75% 0.11 75)", "oklch(87% 0.06 75)", "oklch(95% 0.03 75)"]},
+      "light-success": {"role": "tertiary", "displayName": "Verde de resolución", "tonalRamp": ["oklch(15% 0.07 150)", "oklch(27% 0.11 150)", "oklch(39% 0.14 150)", "oklch(51% 0.15 150)", "oklch(63% 0.13 150)", "oklch(75% 0.10 150)", "oklch(87% 0.05 150)", "oklch(95% 0.025 150)"]},
+      "light-success-soft": {"role": "tertiary", "displayName": "Verde velado", "tonalRamp": ["oklch(15% 0.07 150)", "oklch(27% 0.11 150)", "oklch(39% 0.14 150)", "oklch(51% 0.15 150)", "oklch(63% 0.13 150)", "oklch(75% 0.10 150)", "oklch(87% 0.05 150)", "oklch(95% 0.025 150)"]},
+      "light-info": {"role": "tertiary", "displayName": "Azul informativo", "tonalRamp": ["oklch(15% 0.05 250)", "oklch(27% 0.08 250)", "oklch(39% 0.10 250)", "oklch(51% 0.11 250)", "oklch(63% 0.10 250)", "oklch(75% 0.075 250)", "oklch(87% 0.04 250)", "oklch(95% 0.02 250)"]},
+      "light-info-soft": {"role": "tertiary", "displayName": "Azul velado", "tonalRamp": ["oklch(15% 0.05 250)", "oklch(27% 0.08 250)", "oklch(39% 0.10 250)", "oklch(51% 0.11 250)", "oklch(63% 0.10 250)", "oklch(75% 0.075 250)", "oklch(87% 0.04 250)", "oklch(95% 0.02 250)"]},
+      "dark-background": {"role": "neutral", "displayName": "Grafito nocturno", "tonalRamp": ["oklch(15% 0.008 250)", "oklch(27% 0.008 250)", "oklch(39% 0.008 250)", "oklch(51% 0.008 250)", "oklch(63% 0.008 250)", "oklch(75% 0.008 250)", "oklch(87% 0.008 250)", "oklch(95% 0.008 250)"]},
+      "dark-surface": {"role": "neutral", "displayName": "Grafito elevado", "tonalRamp": ["oklch(15% 0.012 250)", "oklch(27% 0.012 250)", "oklch(39% 0.012 250)", "oklch(51% 0.012 250)", "oklch(63% 0.012 250)", "oklch(75% 0.012 250)", "oklch(87% 0.012 250)", "oklch(95% 0.012 250)"]},
+      "dark-surface-strong": {"role": "neutral", "displayName": "Grafito marcado", "tonalRamp": ["oklch(15% 0.014 250)", "oklch(27% 0.014 250)", "oklch(39% 0.014 250)", "oklch(51% 0.014 250)", "oklch(63% 0.014 250)", "oklch(75% 0.014 250)", "oklch(87% 0.014 250)", "oklch(95% 0.014 250)"]},
+      "dark-text": {"role": "neutral", "displayName": "Tinta inversa", "tonalRamp": ["oklch(15% 0.006 250)", "oklch(27% 0.006 250)", "oklch(39% 0.006 250)", "oklch(51% 0.006 250)", "oklch(63% 0.006 250)", "oklch(75% 0.006 250)", "oklch(87% 0.006 250)", "oklch(96% 0.006 250)"]},
+      "dark-text-secondary": {"role": "neutral", "displayName": "Texto secundario inverso", "tonalRamp": ["oklch(15% 0.012 250)", "oklch(27% 0.012 250)", "oklch(39% 0.012 250)", "oklch(51% 0.012 250)", "oklch(63% 0.012 250)", "oklch(75% 0.012 250)", "oklch(87% 0.012 250)", "oklch(95% 0.012 250)"]},
+      "dark-divider": {"role": "neutral", "displayName": "Regla nocturna", "tonalRamp": ["oklch(15% 0.012 250)", "oklch(27% 0.012 250)", "oklch(39% 0.012 250)", "oklch(51% 0.012 250)", "oklch(63% 0.012 250)", "oklch(75% 0.012 250)", "oklch(87% 0.012 250)", "oklch(95% 0.012 250)"]},
+      "dark-accent": {"role": "primary", "displayName": "Carmesí luminoso", "tonalRamp": ["oklch(15% 0.10 20)", "oklch(27% 0.15 20)", "oklch(39% 0.19 20)", "oklch(51% 0.21 20)", "oklch(63% 0.18 20)", "oklch(75% 0.13 20)", "oklch(87% 0.07 20)", "oklch(95% 0.03 20)"]},
+      "dark-accent-soft": {"role": "primary", "displayName": "Carmesí profundo", "tonalRamp": ["oklch(15% 0.10 20)", "oklch(27% 0.15 20)", "oklch(39% 0.19 20)", "oklch(51% 0.21 20)", "oklch(63% 0.18 20)", "oklch(75% 0.13 20)", "oklch(87% 0.07 20)", "oklch(95% 0.03 20)"]},
+      "dark-warning": {"role": "secondary", "displayName": "Ámbar luminoso", "tonalRamp": ["oklch(15% 0.08 75)", "oklch(27% 0.12 75)", "oklch(39% 0.15 75)", "oklch(51% 0.16 75)", "oklch(63% 0.15 75)", "oklch(75% 0.11 75)", "oklch(87% 0.06 75)", "oklch(95% 0.03 75)"]},
+      "dark-warning-soft": {"role": "secondary", "displayName": "Ámbar profundo", "tonalRamp": ["oklch(15% 0.08 75)", "oklch(27% 0.12 75)", "oklch(39% 0.15 75)", "oklch(51% 0.16 75)", "oklch(63% 0.15 75)", "oklch(75% 0.11 75)", "oklch(87% 0.06 75)", "oklch(95% 0.03 75)"]},
+      "dark-success": {"role": "tertiary", "displayName": "Verde luminoso", "tonalRamp": ["oklch(15% 0.07 150)", "oklch(27% 0.11 150)", "oklch(39% 0.14 150)", "oklch(51% 0.15 150)", "oklch(63% 0.13 150)", "oklch(75% 0.10 150)", "oklch(87% 0.05 150)", "oklch(95% 0.025 150)"]},
+      "dark-success-soft": {"role": "tertiary", "displayName": "Verde profundo", "tonalRamp": ["oklch(15% 0.07 150)", "oklch(27% 0.11 150)", "oklch(39% 0.14 150)", "oklch(51% 0.15 150)", "oklch(63% 0.13 150)", "oklch(75% 0.10 150)", "oklch(87% 0.05 150)", "oklch(95% 0.025 150)"]},
+      "dark-info": {"role": "tertiary", "displayName": "Azul luminoso", "tonalRamp": ["oklch(15% 0.05 250)", "oklch(27% 0.08 250)", "oklch(39% 0.10 250)", "oklch(51% 0.11 250)", "oklch(63% 0.10 250)", "oklch(75% 0.075 250)", "oklch(87% 0.04 250)", "oklch(95% 0.02 250)"]},
+      "dark-info-soft": {"role": "tertiary", "displayName": "Azul profundo", "tonalRamp": ["oklch(15% 0.05 250)", "oklch(27% 0.08 250)", "oklch(39% 0.10 250)", "oklch(51% 0.11 250)", "oklch(63% 0.10 250)", "oklch(75% 0.075 250)", "oklch(87% 0.04 250)", "oklch(95% 0.02 250)"]}
+    },
+    "typographyMeta": {
+      "display-stat": {"displayName": "Cifra total", "purpose": "Total del conjunto en la vista de estadísticas."},
+      "headline-detail": {"displayName": "Título de detalle", "purpose": "Nombre de la tarea abierta."},
+      "headline-root-android": {"displayName": "Título de raíz Android", "purpose": "Encabezado propio de la pantalla inicial en Android."},
+      "title": {"displayName": "Título de sección", "purpose": "Secciones y estados de pantalla."},
+      "body-large": {"displayName": "Cuerpo amplio", "purpose": "Descripción, valores y controles principales."},
+      "body": {"displayName": "Cuerpo", "purpose": "Mensajes y acciones."},
+      "label": {"displayName": "Etiqueta", "purpose": "Badges y metadatos compactos."}
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Filter Trigger",
+      "kind": "button",
+      "refersTo": "filter-trigger",
+      "description": "Control amplio que expande opciones inline sin modal.",
+      "html": "<button class=\"ds-filter-trigger\"><span>Todos</span><span class=\"ds-filter-chevron\" aria-hidden=\"true\"></span></button>",
+      "css": ".ds-filter-trigger { min-height: 52px; width: 220px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border: 0; border-radius: 14px; background: #F3F5F7; color: #17202A; font: 500 17px/1.35 system-ui, sans-serif; } .ds-filter-trigger:hover { background: #E9EDF1; } .ds-filter-trigger:focus-visible { outline: 3px solid #C92542; outline-offset: 2px; } .ds-filter-trigger:active { background: #E9EDF1; } .ds-filter-chevron { width: 9px; height: 9px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); margin-right: 3px; }"
+    },
+    {
+      "name": "Critical Badge",
+      "kind": "chip",
+      "refersTo": "badge-critical",
+      "description": "Badge semántico para prioridad alta o estado pendiente.",
+      "html": "<span class=\"ds-badge-critical\"><span class=\"ds-badge-marker\" aria-hidden=\"true\"></span>Alta</span>",
+      "css": ".ds-badge-critical { min-height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 999px; background: #FBE7EA; color: #C92542; font: 600 14px/1.43 system-ui, sans-serif; } .ds-badge-marker { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }"
+    },
+    {
+      "name": "Warning Badge",
+      "kind": "chip",
+      "refersTo": "badge-warning",
+      "description": "Badge semántico para prioridad media o trabajo en progreso.",
+      "html": "<span class=\"ds-badge-warning\"><span class=\"ds-badge-marker\" aria-hidden=\"true\"></span>En progreso</span>",
+      "css": ".ds-badge-warning { min-height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 999px; background: #FFF2D6; color: #A86600; font: 600 14px/1.43 system-ui, sans-serif; } .ds-badge-marker { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }"
+    },
+    {
+      "name": "Success Badge",
+      "kind": "chip",
+      "refersTo": "badge-success",
+      "description": "Badge semántico para prioridad baja o tarea completada.",
+      "html": "<span class=\"ds-badge-success\"><span class=\"ds-badge-marker\" aria-hidden=\"true\"></span>Completada</span>",
+      "css": ".ds-badge-success { min-height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 999px; background: #DFF3E8; color: #08783E; font: 600 14px/1.43 system-ui, sans-serif; } .ds-badge-marker { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }"
+    },
+    {
+      "name": "Task Row",
+      "kind": "custom",
+      "description": "Fila continua de tarea con título, fecha, semántica redundante y chevron.",
+      "html": "<button class=\"ds-task-row\"><span class=\"ds-task-copy\"><strong>Revisar señalización del acceso norte</strong><small>14 set., 5:30 p. m.</small><span class=\"ds-task-tags\"><span class=\"ds-mini-critical\">● Alta</span><span class=\"ds-mini-critical\">● Pendiente</span></span></span><span class=\"ds-task-arrow\" aria-hidden=\"true\">›</span></button>",
+      "css": ".ds-task-row { min-height: 112px; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 16px 12px 16px 0; border: 0; border-bottom: 1px solid #DDE2E7; background: #FFFFFF; color: #17202A; text-align: left; } .ds-task-row:hover, .ds-task-row:active { background: #F3F5F7; } .ds-task-row:focus-visible { outline: 3px solid #C92542; outline-offset: -3px; } .ds-task-copy { display: flex; flex-direction: column; gap: 8px; } .ds-task-copy strong { max-width: 560px; font: 500 18px/23px system-ui, sans-serif; } .ds-task-copy small { color: #667281; font: 400 15px/20px system-ui, sans-serif; } .ds-task-tags { display: flex; flex-wrap: wrap; gap: 8px; } .ds-mini-critical { padding: 6px 10px; border-radius: 999px; background: #FBE7EA; color: #C92542; font: 600 14px/20px system-ui, sans-serif; } .ds-task-arrow { color: #667281; font: 400 34px/1 system-ui, sans-serif; }"
+    },
+    {
+      "name": "State Action",
+      "kind": "button",
+      "refersTo": "state-action",
+      "description": "Única acción de recuperación para vacío, error o filtros sin resultados.",
+      "html": "<button class=\"ds-state-action\">Reintentar</button>",
+      "css": ".ds-state-action { min-height: 48px; padding: 0 24px; border: 0; border-radius: 14px; background: #C92542; color: #FFFFFF; font: 700 16px/1.44 system-ui, sans-serif; } .ds-state-action:hover { background: #A91F38; } .ds-state-action:focus-visible { outline: 3px solid #17202A; outline-offset: 3px; } .ds-state-action:active { background: #FBE7EA; color: #C92542; }"
+    },
+    {
+      "name": "Summary Strip",
+      "kind": "custom",
+      "description": "Resumen de tres estados con cifras tabulares y divisores finos.",
+      "html": "<div class=\"ds-summary\" role=\"img\" aria-label=\"4 pendientes, 4 en progreso y 4 completadas\"><span><strong class=\"ds-summary-critical\">4</strong><small>Pendientes</small></span><i></i><span><strong class=\"ds-summary-warning\">4</strong><small>En progreso</small></span><i></i><span><strong class=\"ds-summary-success\">4</strong><small>Completadas</small></span></div>",
+      "css": ".ds-summary { display: flex; align-items: stretch; width: 100%; background: #FFFFFF; font-family: system-ui, sans-serif; } .ds-summary span { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 8px; } .ds-summary strong { font-size: 34px; line-height: 40px; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-summary small { color: #667281; font-size: 15px; line-height: 20px; text-align: center; } .ds-summary i { width: 1px; background: #DDE2E7; margin: 4px 0; } .ds-summary-critical { color: #C92542; } .ds-summary-warning { color: #A86600; } .ds-summary-success { color: #08783E; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Panel operativo sereno",
+    "overview": "El sistema toma la familiaridad de una aplicación nativa de tareas y la convierte en una herramienta de supervisión: limpia, inmediata y sin ornamento ajeno al trabajo. La primera lectura siempre debe responder cuántas tareas existen, cómo se distribuyen y cuál requiere atención; la identidad aparece en la disciplina de la jerarquía y en el acento carmesí, no en gestos de marca inventados. La dirección elegida es el estándar de la categoría ejecutado con precisión. Usa una lista continua, controles amplios, chips semánticos y superficies adaptativas. iOS conserva el large title y la navegación gestual provistos por el stack nativo; Android usa encabezado propio en la raíz, objetivos táctiles de al menos 48 dp y Back nativo en pantallas jerárquicas. La implementación de iOS está configurada, pero su validación visual permanece pendiente hasta disponer del runtime correspondiente.",
+    "keyCharacteristics": [
+      "Lectura operativa inmediata antes que decoración.",
+      "Lista continua, divisores finos y pocas superficies contenidas.",
+      "Semántica redundante mediante color, texto y marcador circular.",
+      "Adaptación clara/oscura desde el esquema del sistema.",
+      "Navegación y áreas seguras resueltas con componentes nativos."
+    ],
+    "rules": [
+      {"name": "The Semantic Trio Rule", "body": "Carmesí, ámbar y verde mantienen siempre el mismo significado operativo; nunca se intercambian por variedad visual.", "section": "colors"},
+      {"name": "The Color Plus Language Rule", "body": "Ningún estado depende sólo del color: siempre aparece con texto y, en badges, con marcador circular.", "section": "colors"},
+      {"name": "The Native Scale Rule", "body": "El texto acepta la escala configurada por el sistema; los contenedores deben envolver o crecer y nunca reducir tipografía automáticamente para hacerla entrar.", "section": "typography"},
+      {"name": "The One Continuous List Rule", "body": "Las tareas se separan con reglas finas; no deben convertirse en una colección de tarjetas flotantes.", "section": "layout"},
+      {"name": "The Flat by Default Rule", "body": "Una superficie sólo cambia de tono por función o interacción; nunca recibe sombra decorativa.", "section": "elevation"}
+    ],
+    "dos": [
+      "Do conservar la lectura título → resumen → filtros → lista en la raíz.",
+      "Do usar la escala de espaciado y los roles semánticos existentes antes de introducir nuevos valores.",
+      "Do permitir wrap y crecimiento vertical cuando aumenta el tamaño de texto.",
+      "Do respetar las diferencias de navegación y objetivos táctiles de iOS y Android.",
+      "Do mantener estados de carga, vacío, error y sin resultados visibles y accionables."
+    ],
+    "donts": [
+      "Don't introducir CRUD, botón flotante o affordances de edición en este visor de solo lectura.",
+      "Don't usar color sin etiqueta textual para comunicar estado o prioridad.",
+      "Don't convertir filas, métricas o secciones en tarjetas elevadas por defecto.",
+      "Don't agregar logos, activos o afirmaciones oficiales de Real Plaza no suministrados.",
+      "Don't declarar el resultado visual en iOS como validado hasta ejecutarlo con un runtime real o simulado."
+    ]
+  }
+}

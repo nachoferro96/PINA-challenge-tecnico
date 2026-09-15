@@ -1,97 +1,124 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Real Plaza Tasks
 
-# Getting Started
+MVP de un panel móvil de tareas desarrollado para el challenge técnico de React Native. La app es de solo lectura: permite listar, filtrar, consultar detalle y visualizar estadísticas usando datos locales con latencia simulada.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+> Proyecto demostrativo. No utiliza datos, servicios, logotipos ni activos oficiales de Real Plaza.
 
-## Step 1: Start Metro
+## Alcance
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- 12 tareas mock que cubren todos los estados y prioridades requeridos.
+- Filtros combinables por estado y prioridad.
+- Detalle completo de una tarea.
+- Estadísticas por estado y prioridad, dibujadas con componentes nativos.
+- Estados explícitos de carga, error, lista vacía y filtros sin resultados.
+- Escenarios de demostración para `normal`, `vacío` y `error` disponibles en builds de desarrollo.
+- Modo claro/oscuro y adaptación al tamaño de texto del sistema.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+No incluye backend, autenticación, múltiples usuarios ni CRUD porque el brief los deja fuera de alcance. En particular, la app no permite agregar tareas.
 
-```sh
-# Using npm
-npm start
+## Requisitos
 
-# OR using Yarn
-yarn start
-```
+- Node.js 20 o superior.
+- npm.
+- Watchman recomendado en macOS.
+- Android: JDK 17, Android Studio/SDK y un emulador o dispositivo.
+- iOS: macOS, Xcode 16.3 o compatible y un runtime de iOS instalado.
 
-## Step 2: Build and run your app
+La versión de React Native está fijada en `0.83.1`. `react-native-screens` está fijado exactamente en `4.25.0` porque versiones 4.26+ requieren React Native 0.84+.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Instalación
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+```bash
+npm install
 bundle install
+cd ios
+LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 bundle exec pod install
+cd ..
 ```
 
-Then, and every time you update your native dependencies, run:
+`nkf` está declarado en el `Gemfile` para que CocoaPods funcione también con Ruby 4, donde `kconv` dejó de formar parte de las gemas por defecto.
 
-```sh
-bundle exec pod install
+## Ejecución
+
+Primero iniciar Metro:
+
+```bash
+npm start
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+En otra terminal:
 
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
+# o
+npm run android
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, después de instalar Pods.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Estado real de validación
 
-## Step 3: Modify your app
+- Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
+- iOS: dependencias CocoaPods y codegen instalados correctamente con Xcode 16.3. La compilación/ejecución queda pendiente hasta que termine de instalarse el runtime iOS 18.4 en esta Mac. No se declara validación visual iOS sin esa evidencia.
 
-Now that you have successfully run the app, let's make changes!
+## Calidad
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```bash
+npx tsc --noEmit
+npm run lint
+npm test -- --runInBand
+cd android && ./gradlew assembleDebug
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+Las 13 pruebas Jest cubren repositorio mock, reducer, filtros, búsqueda por id, estadísticas, estados de pantalla y la composición principal de proveedores y navegación.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Arquitectura
 
-## Congratulations! :tada:
+```mermaid
+flowchart LR
+  UI["Screens y componentes"] --> C["TaskContext"]
+  C --> R["taskReducer"]
+  C --> S["Selectores derivados"]
+  C --> P["TaskRepository"]
+  P --> M["MockTaskRepository"]
+  P -. "extensión futura" .-> H["HttpTaskRepository"]
+  M --> D["mockTasks"]
+  S --> UI
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+```text
+src/
+├── app/navigation          # stack y contratos de rutas
+├── features/tasks
+│   ├── domain              # Task y TaskRepository
+│   ├── data                # mocks y repositorio local
+│   ├── state               # reducer, contexto y selectores
+│   ├── components          # piezas visuales reutilizables
+│   └── screens             # lista, detalle y estadísticas
+└── shared                  # tema y utilidades transversales
+```
 
-### Now what?
+`Context + useReducer` mantiene explícitos los eventos de un único dominio sin incorporar el coste de una librería global. `TaskRepository` separa la fuente de datos de la interfaz; reemplazar el mock por HTTP no requiere cambiar pantallas. Filtros y estadísticas son datos derivados para evitar sincronización y duplicación de estado.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Modelo mock
 
-# Troubleshooting
+El modelo mínimo se extendió con:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- `area`: aporta contexto operativo al listado y detalle.
+- `assignee`: permite identificar responsabilidad sin introducir múltiples sesiones de usuario.
+- `dueAt`: diferencia vencimiento de `createdAt` y permite una lectura temporal útil.
 
-# Learn More
+Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `completed + high` se deja deliberadamente sin datos para que el estado requerido de filtro sin resultados sea reproducible; aun así, el conjunto cubre por separado todos los estados y prioridades pedidos.
 
-To learn more about React Native, take a look at the following resources:
+## Documentación
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [Decisiones de arquitectura](docs/architecture-decisions.md)
+- [Bitácora del challenge](docs/challenge-log.md)
+- [Defensa para entrevista](docs/interview-defense.md)
+- [Producto](PRODUCT.md)
+- [Sistema de diseño](DESIGN.md)
+- Skill local para ampliaciones: `.agents/skills/extend-real-plaza-tasks/SKILL.md`
+
+## Uso de IA
+
+Se utilizó IA como apoyo para analizar el brief, explorar direcciones visuales, implementar, revisar y documentar. Las decisiones se conservan en la bitácora y se validan mediante tipos, pruebas y builds nativos. La IA no reemplaza la responsabilidad técnica: cada elección debe poder explicarse, reproducirse y modificarse desde el código.
