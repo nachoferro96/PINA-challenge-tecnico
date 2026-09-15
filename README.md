@@ -108,6 +108,8 @@ En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, despu
 - Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
 - iOS: compilado y ejecutado en iPhone 16 Pro Simulator con iOS 18.4 y Xcode 16.3. Se verificaron lista, filtros combinados, detalle, Back nativo, estadísticas, carga, error, vacío, sin resultados, modo oscuro y Dynamic Type.
 
+La app sigue la apariencia del sistema. Para revisar el modo oscuro en iOS, activar `Settings > Display & Brightness > Dark` dentro del simulador; no requiere una configuración propia de la app.
+
 El ajuste de inset bajo el `large title` de iOS fue corregido con el comportamiento automático del `FlatList` y validado nuevamente desde un lanzamiento limpio. El contador, el resumen, los filtros y la lista quedan visibles desde la primera vista.
 
 En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, vacío y error; el estado de carga aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
