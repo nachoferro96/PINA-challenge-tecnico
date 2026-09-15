@@ -1,0 +1,4 @@
+interface:
+  display_name: "Extender Real Plaza Tasks"
+  short_description: "Guía segura para ampliar el challenge móvil"
+  default_prompt: "Usa $extend-real-plaza-tasks para ampliar la app sin romper sus decisiones de arquitectura ni su alcance."
