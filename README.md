@@ -97,6 +97,42 @@ npm run android:build
 
 `TaskRepository` aísla los mocks de la UI. `Context + useReducer` modela las transiciones de carga y filtros; lista y estadísticas se derivan desde las tareas para no duplicar estado.
 
+```mermaid
+flowchart LR
+  A[App.tsx<br/>composition root] --> B[TaskProvider<br/>Context + reducer]
+  A --> C[AppNavigator<br/>native stack]
+  C --> D[Listado · Detalle · Estadísticas]
+  D --> E[Componentes de UI]
+  B --> D
+  B --> F[Selectores<br/>filtros y estadísticas]
+  F --> D
+  B --> G[TaskRepository<br/>contrato]
+  G --> H[MockTaskRepository<br/>latencia y escenarios]
+  H --> I[mockTasks]
+```
+
+Flujo de datos: una pantalla despacha una acción al `TaskProvider`; el reducer actualiza el estado y los selectores derivan la lista o métricas que renderiza la UI. La fuente actual es `MockTaskRepository`; una API futura implementaría el mismo contrato.
+
+### Estructura de carpetas
+
+```text
+App.tsx                         composición e inyección de dependencias
+src/
+├── app/navigation/             stack y tipos de rutas
+├── features/tasks/
+│   ├── domain/                 modelo y contrato TaskRepository
+│   ├── data/                   mock, escenarios y datos de prueba
+│   ├── state/                  provider, reducer y selectores puros
+│   ├── components/             controles, filas, badges y estados de pantalla
+│   └── screens/                listado, detalle y estadísticas
+└── shared/
+    ├── theme/                  tokens visuales
+    └── utils/                  formateo reutilizable
+__tests__/                      composición de la aplicación
+ios/ · android/                 proyectos nativos de React Native CLI
+docs/                           guía de la rama feature/plus
+```
+
 ## Recursos del repositorio
 
 - Skill local para ampliaciones: [`.agents/skills/extend-real-plaza-tasks/SKILL.md`](.agents/skills/extend-real-plaza-tasks/SKILL.md)
