@@ -135,6 +135,7 @@ docs/                           guía de la rama feature/plus
 
 ## Recursos del repositorio
 
+- [Documentación técnica y decisiones arquitectónicas](docs/documentacion-tecnica.md)
 - Skill local para ampliaciones: [`.agents/skills/extend-real-plaza-tasks/SKILL.md`](.agents/skills/extend-real-plaza-tasks/SKILL.md)
 - [Guía de `feature/plus`](docs/feature-plus-guide.md)
 
