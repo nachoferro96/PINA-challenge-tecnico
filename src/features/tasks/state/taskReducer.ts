@@ -36,7 +36,7 @@ export const taskReducer = (
 ): TaskState => {
   switch (action.type) {
     case 'loadRequested':
-      return {...state, loadStatus: 'loading', errorMessage: null};
+      return {...state, tasks: [], loadStatus: 'loading', errorMessage: null};
     case 'loadSucceeded':
       return {
         ...state,
@@ -59,4 +59,3 @@ export const taskReducer = (
       return {...state, filters: defaultTaskFilters};
   }
 };
-

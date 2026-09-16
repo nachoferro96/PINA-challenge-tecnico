@@ -30,7 +30,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Tasks'> & {
 
 const statusOptions: readonly {value: TaskStatus | 'all'; label: string}[] = [
   {value: 'all', label: 'Todos'},
-  ...(['pending', 'inProgress', 'completed'] as const).map(value => ({
+  ...(['pending', 'in_progress', 'done'] as const).map(value => ({
     value,
     label: statusLabels[value],
   })),
@@ -116,7 +116,7 @@ export function TaskListScreen({
           </Pressable>
           {showDemoControls ? (
             <View style={styles.scenarios}>
-              {(['normal', 'empty', 'error'] as const).map(value => (
+              {(['normal', 'loading', 'empty', 'error'] as const).map(value => (
                 <Pressable
                   key={value}
                   accessibilityRole="radio"
@@ -136,7 +136,14 @@ export function TaskListScreen({
                         ? styles.selectedScenarioLabel
                         : colorStyles.scenarioLabel,
                     ]}>
-                    {{normal: 'Normal', empty: 'Vacío', error: 'Error'}[value]}
+                    {
+                      {
+                        normal: 'Normal',
+                        loading: 'Carga',
+                        empty: 'Vacío',
+                        error: 'Error',
+                      }[value]
+                    }
                   </Text>
                 </Pressable>
               ))}

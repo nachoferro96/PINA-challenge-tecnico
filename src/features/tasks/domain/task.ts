@@ -1,4 +1,4 @@
-export const taskStatuses = ['pending', 'inProgress', 'completed'] as const;
+export const taskStatuses = ['pending', 'in_progress', 'done'] as const;
 export const taskPriorities = ['low', 'medium', 'high'] as const;
 
 export type TaskStatus = (typeof taskStatuses)[number];
@@ -25,4 +25,3 @@ export const defaultTaskFilters: TaskFilters = {
   status: 'all',
   priority: 'all',
 };
-

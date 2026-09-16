@@ -16,7 +16,7 @@ export function TaskBadge({kind}: {kind: BadgeKind}) {
   const isHighOrPending =
     semanticValue === 'high' || semanticValue === 'pending';
   const isMediumOrProgress =
-    semanticValue === 'medium' || semanticValue === 'inProgress';
+    semanticValue === 'medium' || semanticValue === 'in_progress';
   const foreground = isHighOrPending
     ? colors.accent
     : isMediumOrProgress
@@ -55,4 +55,3 @@ const styles = StyleSheet.create({
   marker: {width: 7, height: 7, borderRadius: 4},
   label: {fontSize: 14, fontWeight: '600'},
 });
-

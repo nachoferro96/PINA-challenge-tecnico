@@ -36,11 +36,10 @@ export const calculateTaskStatistics = (
     }),
     {
       total: 0,
-      byStatus: {pending: 0, inProgress: 0, completed: 0},
+      byStatus: {pending: 0, in_progress: 0, done: 0},
       byPriority: {low: 0, medium: 0, high: 0},
     },
   );
 
 export const findTaskById = (tasks: readonly Task[], id: string) =>
   tasks.find(task => task.id === id);
-

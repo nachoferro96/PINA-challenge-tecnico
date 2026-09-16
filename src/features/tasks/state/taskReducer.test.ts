@@ -3,13 +3,18 @@ import {initialTaskState, taskReducer} from './taskReducer';
 
 describe('taskReducer', () => {
   it('representa la secuencia de carga exitosa', () => {
-    const loading = taskReducer(initialTaskState, {type: 'loadRequested'});
+    const stateWithData = taskReducer(initialTaskState, {
+      type: 'loadSucceeded',
+      tasks: mockTasks,
+    });
+    const loading = taskReducer(stateWithData, {type: 'loadRequested'});
     const success = taskReducer(loading, {
       type: 'loadSucceeded',
       tasks: mockTasks,
     });
 
     expect(loading.loadStatus).toBe('loading');
+    expect(loading.tasks).toEqual([]);
     expect(success.loadStatus).toBe('success');
     expect(success.tasks).toHaveLength(12);
   });
@@ -45,4 +50,3 @@ describe('taskReducer', () => {
     });
   });
 });
-

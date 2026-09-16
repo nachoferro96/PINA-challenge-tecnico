@@ -57,8 +57,8 @@ En iOS se debe abrir `ios/RealPlazaTasks.xcworkspace`, nunca el `.xcodeproj`, de
 - Filtros combinables por estado y prioridad.
 - Detalle completo de una tarea.
 - Estadísticas por estado y prioridad, dibujadas con componentes nativos.
-- Estados explícitos de carga, error, lista vacía y filtros sin resultados.
-- Escenarios de demostración para `normal`, `vacío` y `error` disponibles en builds de desarrollo.
+- Estados explícitos de carga, error y vacío tanto en la lista como en Estadísticas, además de filtros sin resultados.
+- Escenarios de demostración para `normal`, `carga`, `vacío` y `error` disponibles en builds de desarrollo.
 - Modo claro/oscuro y adaptación al tamaño de texto del sistema.
 
 No incluye backend, autenticación, múltiples usuarios ni CRUD porque el brief los deja fuera de alcance. En particular, la app no permite agregar tareas.
@@ -107,10 +107,20 @@ En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, despu
 
 - Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
 - iOS: compilado y ejecutado en iPhone 16 Pro Simulator con iOS 18.4 y Xcode 16.3. Se verificaron lista, filtros combinados, detalle, Back nativo, estadísticas, carga, error, vacío, sin resultados, modo oscuro y Dynamic Type.
+- Revalidación de `main`: loading, error y empty de Estadísticas se inspeccionaron en iPhone 16 Plus Simulator con iOS 18.4; al finalizar se restauró el escenario normal.
 
 El ajuste de inset bajo el `large title` de iOS fue corregido con el comportamiento automático del `FlatList` y validado nuevamente desde un lanzamiento limpio. El contador, el resumen, los filtros y la lista quedan visibles desde la primera vista.
 
-En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, vacío y error; el estado de carga aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
+En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, carga persistente, vacío y error. La carga normal también aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
+
+| Escenario | Respuesta del repositorio mock | Resultado visible |
+| --- | --- | --- |
+| Normal | 12 tareas después de 700 ms | Lista y estadísticas completas |
+| Carga | Promesa deliberadamente pendiente | Esqueletos persistentes para inspección |
+| Vacío | Respuesta exitosa con `[]` | Empty state, sin estadísticas falsas en cero |
+| Error | Promesa rechazada | Mensaje recuperable y acción de reintento |
+
+Mientras **Carga**, **Vacío** o **Error** estén seleccionados, el escenario se mantiene para que pueda inspeccionarse en Lista y Estadísticas. Seleccionar **Normal** restaura el flujo exitoso.
 
 ## Calidad
 
@@ -121,7 +131,7 @@ npm test -- --runInBand
 cd android && ./gradlew assembleDebug
 ```
 
-Las 13 pruebas Jest cubren repositorio mock, reducer, filtros, búsqueda por id, estadísticas, estados de pantalla y la composición principal de proveedores y navegación.
+Las 19 pruebas Jest cubren contrato mínimo y cobertura del mock, repositorio, reducer, filtros, búsqueda por id, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación.
 
 ## Arquitectura
 
@@ -152,13 +162,28 @@ src/
 
 ## Modelo mock
 
+El dominio conserva literalmente la estructura mínima requerida por el brief:
+
+```ts
+type Task = {
+  id: string;
+  title: string;
+  description: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in_progress' | 'done';
+  createdAt: string;
+};
+```
+
+Los mismos valores de `status` se mantienen en el archivo mock y en los selectores. La traducción a “Pendiente”, “En progreso” y “Completada” ocurre únicamente en la capa de presentación.
+
 El modelo mínimo se extendió con:
 
 - `area`: aporta contexto operativo al listado y detalle.
 - `assignee`: permite identificar responsabilidad sin introducir múltiples sesiones de usuario.
 - `dueAt`: diferencia vencimiento de `createdAt` y permite una lectura temporal útil.
 
-Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `completed + high` se deja deliberadamente sin datos para que el estado requerido de filtro sin resultados sea reproducible; aun así, el conjunto cubre por separado todos los estados y prioridades pedidos.
+Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `done + high` se deja deliberadamente sin datos para que el estado requerido de filtro sin resultados sea reproducible; aun así, el conjunto cubre por separado todos los estados y prioridades pedidos.
 
 ## Documentación
 

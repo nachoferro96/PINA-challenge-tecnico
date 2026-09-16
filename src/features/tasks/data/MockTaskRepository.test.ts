@@ -16,6 +16,18 @@ describe('MockTaskRepository', () => {
     await expect(repository.getTasks()).resolves.toEqual([]);
   });
 
+  it('permite mantener visible el estado de carga', async () => {
+    const repository = new MockTaskRepository({scenario: 'loading'});
+    let settled = false;
+
+    repository.getTasks().finally(() => {
+      settled = true;
+    });
+    await Promise.resolve();
+
+    expect(settled).toBe(false);
+  });
+
   it('permite demostrar y recuperar el estado de error', async () => {
     const repository = new MockTaskRepository({
       scenario: 'error',

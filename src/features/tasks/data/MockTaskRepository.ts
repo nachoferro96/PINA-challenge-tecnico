@@ -2,7 +2,7 @@ import type {Task} from '../domain/task';
 import type {TaskRepository} from '../domain/TaskRepository';
 import {mockTasks} from './mockTasks';
 
-export type MockScenario = 'normal' | 'empty' | 'error';
+export type MockScenario = 'normal' | 'loading' | 'empty' | 'error';
 
 type MockTaskRepositoryOptions = Readonly<{
   scenario?: MockScenario;
@@ -22,6 +22,10 @@ export class MockTaskRepository implements TaskRepository {
   }
 
   async getTasks(): Promise<readonly Task[]> {
+    if (this.scenario === 'loading') {
+      return new Promise(() => undefined);
+    }
+
     await wait(this.latencyMs);
 
     if (this.scenario === 'error') {

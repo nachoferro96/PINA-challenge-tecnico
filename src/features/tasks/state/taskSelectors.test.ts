@@ -4,7 +4,7 @@ import {calculateTaskStatistics, filterTasks, findTaskById} from './taskSelector
 describe('task selectors', () => {
   it('combina los filtros de estado y prioridad', () => {
     const result = filterTasks(mockTasks, {
-      status: 'completed',
+      status: 'done',
       priority: 'high',
     });
 
@@ -22,7 +22,7 @@ describe('task selectors', () => {
 
     expect(statistics).toEqual({
       total: 12,
-      byStatus: {pending: 4, inProgress: 4, completed: 4},
+      byStatus: {pending: 4, in_progress: 4, done: 4},
       byPriority: {low: 4, medium: 5, high: 3},
     });
   });
