@@ -9,7 +9,7 @@ Esta rama sirve para experimentar con mejoras de producto sin alterar el MVP eva
 - Mantener los datos mock y el estado en memoria mientras la app está abierta.
 - Respetar `TaskRepository`, `TaskContext`, el reducer y los selectores derivados.
 - Mantener iOS como plataforma principal y verificar Android en el mismo repositorio.
-- Registrar cada cambio en `docs/challenge-log.md` y actualizar esta guía si cambia el flujo.
+- Actualizar esta guía si cambia el flujo o el alcance de la rama.
 
 ## Crear la rama
 
@@ -28,7 +28,7 @@ git switch -c feature/plus
 3. Editar tareas durante la sesión, con validación local. Implementado.
 4. Acciones rápidas para completar o deshacer cambios.
 
-No conviene implementar todo junto. Cada feature debe tener un objetivo visible, una decisión documentada y una validación reproducible.
+No conviene implementar todo junto. Cada feature debe tener un objetivo visible, un alcance acotado y una validación reproducible.
 
 ## Búsqueda implementada
 
@@ -62,14 +62,14 @@ No conviene implementar todo junto. Cada feature debe tener un objetivo visible,
 ## Proceso por feature
 
 1. Escribir el comportamiento esperado y el límite de la feature.
-2. Revisar `PRODUCT.md`, `DESIGN.md`, `docs/architecture-decisions.md` y el skill local.
+2. Revisar el README, esta guía y el skill local.
 3. Extender el dominio sólo si el comportamiento lo necesita.
 4. Añadir acciones explícitas al reducer y selectores puros para datos derivados.
 5. Mantener la UI independiente de la fuente mock.
 6. Añadir o actualizar pruebas.
 7. Ejecutar `npm run check`.
 8. Validar iOS y repetir el smoke test Android.
-9. Registrar resultado, trade-offs y pendientes en la bitácora.
+9. Actualizar esta guía si cambia el alcance o la forma de ejecutar la rama.
 
 ## Estado en memoria
 

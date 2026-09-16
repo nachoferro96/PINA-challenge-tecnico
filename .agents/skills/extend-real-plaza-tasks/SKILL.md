@@ -1,17 +1,17 @@
 ---
 name: extend-real-plaza-tasks
-description: Ampliar y mantener la aplicación React Native RealPlazaTasks conservando su arquitectura, alcance, estados de interfaz y trazabilidad. Usar al agregar funcionalidades locales, mutaciones en memoria, nuevas pantallas, filtros, tests o cambios de plataforma dentro de este repositorio.
+description: Ampliar y mantener la aplicación React Native RealPlazaTasks conservando su arquitectura, alcance y estados de interfaz. Usar al agregar funcionalidades locales, mutaciones en memoria, nuevas pantallas, filtros, tests o cambios de plataforma dentro de este repositorio.
 ---
 
 # Extender RealPlazaTasks
 
 ## Preparar el cambio
 
-1. Leer `PRODUCT.md`, `DESIGN.md` cuando exista, `README.md` y `docs/architecture-decisions.md`.
+1. Leer `README.md`, la guía de `feature/plus` y, cuando corresponda, esta skill.
 2. Leer [references/extension-points.md](references/extension-points.md).
 3. Inspeccionar el código vigente; tratar la documentación como intención y el código/pruebas como evidencia ejecutable.
 4. Definir qué requisito habilita el cambio y qué queda fuera de alcance.
-5. Añadir la decisión y su validación a `docs/challenge-log.md`.
+5. Actualizar la guía de `feature/plus` cuando cambie su alcance o su forma de ejecución.
 
 ## Conservar las fronteras
 
@@ -62,14 +62,4 @@ LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 bundle exec pod install --project-directory=
 xcodebuild -workspace ios/RealPlazaTasks.xcworkspace -scheme RealPlazaTasks -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
 ```
 
-Registrar por separado “compila” y “fue ejecutada en emulador/dispositivo”; no presentarlos como la misma evidencia.
-
-Al registrar estados de datos, separar también:
-
-- comportamiento natural del mock normal;
-- escenario forzado en Debug;
-- comportamiento disponible pero no provocable artificialmente en Release;
-- prueba automatizada;
-- inspección visual real.
-
-Si una prueba fue creada con asistencia de IA, declararlo sin restarle valor técnico. Afirmar revisión manual sólo después de leer el caso, comprobar que valida comportamiento relevante, ejecutarlo y contrastarlo con el flujo cuando corresponda.
+Registrar por separado “compila” y “fue ejecutada en emulador/dispositivo”; no presentarlos como la misma evidencia en la guía de la rama si cambia la validación declarada.

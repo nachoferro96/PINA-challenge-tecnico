@@ -4,6 +4,8 @@ MVP de un panel móvil de tareas desarrollado para el challenge técnico de Reac
 
 > Proyecto demostrativo. No utiliza datos, servicios, logotipos ni activos oficiales de Real Plaza.
 
+La rama opcional [`feature/plus`](https://github.com/nachoferro96/PINA-challenge-tecnico/tree/feature/plus) reúne mejoras que agregué sin modificar el alcance evaluable de `main`. Incluye búsqueda, ordenamiento y edición local durante la sesión; su propio README describe el detalle de esas funcionalidades.
+
 ## Inicio rápido
 
 ### iOS — plataforma principal validada
@@ -61,7 +63,7 @@ En iOS se debe abrir `ios/RealPlazaTasks.xcworkspace`, nunca el `.xcodeproj`, de
 - Escenarios de demostración para `normal`, `carga`, `vacío` y `error` disponibles en builds de desarrollo.
 - Modo claro/oscuro y adaptación al tamaño de texto del sistema.
 
-No incluye backend, autenticación, múltiples usuarios ni CRUD porque el brief los deja fuera de alcance. En particular, la app no permite agregar tareas.
+No incluye backend, autenticación, múltiples usuarios ni CRUD porque el brief los deja fuera de alcance. En particular, `main` no permite agregar ni editar tareas. La versión `feature/plus` habilita edición local durante la sesión, pero tampoco incorpora altas de tareas ni persistencia.
 
 ### Rama `feature/plus`
 
@@ -115,8 +117,6 @@ En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, despu
 
 La app sigue la apariencia del sistema. Para revisar el modo oscuro en iOS, activar `Settings > Display & Brightness > Dark` dentro del simulador; no requiere una configuración propia de la app.
 
-El ajuste de inset bajo el `large title` de iOS fue corregido con el comportamiento automático del `FlatList` y validado nuevamente desde un lanzamiento limpio. El contador, el resumen, los filtros y la lista quedan visibles desde la primera vista.
-
 En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, carga persistente, vacío y error. La carga normal también aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
 
 ### Reproducir los estados simulados
@@ -146,7 +146,7 @@ npm test -- --runInBand
 cd android && ./gradlew assembleDebug
 ```
 
-Las pruebas Jest cubren contrato mínimo y cobertura del mock, repositorio, reducer, filtros, búsqueda, ordenamiento estable, edición local, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación.
+Las 25 pruebas Jest cubren contrato mínimo y cobertura del mock, repositorio, reducer, filtros, búsqueda, ordenamiento estable, edición local, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación. Gran parte del testing fue asistida por IA y luego revisada manualmente.
 
 ## Arquitectura
 
@@ -202,14 +202,9 @@ Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `
 
 ## Documentación
 
-- [Decisiones de arquitectura](docs/architecture-decisions.md)
-- [Bitácora del challenge](docs/challenge-log.md)
-- [Defensa para entrevista](docs/interview-defense.md)
-- [Producto](PRODUCT.md)
-- [Sistema de diseño](DESIGN.md)
 - Skill local para ampliaciones: `.agents/skills/extend-real-plaza-tasks/SKILL.md`
 - [Guía de `feature/plus`](docs/feature-plus-guide.md)
 
 ## Uso de IA
 
-Se utilizó IA como apoyo para analizar el brief, explorar direcciones visuales, implementar, crear pruebas, revisar y documentar. Las pruebas asistidas por IA se revisaron manualmente para comprobar que validaran comportamientos relevantes, se ejecutaron localmente y se contrastaron con recorridos funcionales en el simulador. La IA no reemplaza la responsabilidad técnica: cada elección debe poder explicarse, reproducirse y modificarse desde el código.
+La IA se utilizó para acelerar algunas implementaciones, testing y parte de la documentación. Las decisiones técnicas fueron propias; toda implementación asistida fue revisada cuidadosamente y, cuando fue necesario, ajustada para corregir inferencias o supuestos de los agentes.
