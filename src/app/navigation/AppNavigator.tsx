@@ -5,6 +5,7 @@ import {useNavigation, type NavigationProp} from '@react-navigation/native';
 
 import type {MockScenario} from '../../features/tasks/data/MockTaskRepository';
 import {TaskDetailScreen} from '../../features/tasks/screens/TaskDetailScreen';
+import {EditTaskScreen} from '../../features/tasks/screens/EditTaskScreen';
 import {TaskListScreen} from '../../features/tasks/screens/TaskListScreen';
 import {TaskStatisticsScreen} from '../../features/tasks/screens/TaskStatisticsScreen';
 import {useAppTheme} from '../../shared/theme/theme';
@@ -65,6 +66,11 @@ export function AppNavigator({scenario, onScenarioChange}: AppNavigatorProps) {
         name="TaskDetail"
         component={TaskDetailScreen}
         options={{title: 'Detalle'}}
+      />
+      <Stack.Screen
+        name="EditTask"
+        component={EditTaskScreen}
+        options={{title: 'Editar tarea'}}
       />
       <Stack.Screen
         name="Statistics"

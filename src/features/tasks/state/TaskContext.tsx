@@ -8,16 +8,26 @@ import React, {
   useReducer,
 } from 'react';
 
-import type {TaskPriority, TaskStatus} from '../domain/task';
+import type {
+  Task,
+  TaskPriority,
+  TaskSortDirection,
+  TaskSortField,
+  TaskStatus,
+} from '../domain/task';
 import type {TaskRepository} from '../domain/TaskRepository';
-import {calculateTaskStatistics, filterTasks} from './taskSelectors';
+import {calculateTaskStatistics, filterTasks, sortTasks} from './taskSelectors';
 import {initialTaskState, taskReducer} from './taskReducer';
 
 type TaskContextValue = Readonly<{
   state: ReturnType<typeof buildExposedState>;
   reload: () => Promise<void>;
+  updateTask: (task: Task) => void;
+  setQueryFilter: (query: string) => void;
   setStatusFilter: (status: TaskStatus | 'all') => void;
   setPriorityFilter: (priority: TaskPriority | 'all') => void;
+  setSortField: (field: TaskSortField) => void;
+  setSortDirection: (direction: TaskSortDirection) => void;
   clearFilters: () => void;
 }>;
 
@@ -25,7 +35,7 @@ const TaskContext = createContext<TaskContextValue | null>(null);
 
 const buildExposedState = (state: typeof initialTaskState) => ({
   ...state,
-  filteredTasks: filterTasks(state.tasks, state.filters),
+  filteredTasks: sortTasks(filterTasks(state.tasks, state.filters), state.sort),
   statistics: calculateTaskStatistics(state.tasks),
 });
 
@@ -61,10 +71,15 @@ export function TaskProvider({repository, children}: TaskProviderProps) {
     () => ({
       state: buildExposedState(taskState),
       reload,
+      updateTask: task => dispatch({type: 'taskUpdated', task}),
+      setQueryFilter: query => dispatch({type: 'queryFilterChanged', query}),
       setStatusFilter: status =>
         dispatch({type: 'statusFilterChanged', status}),
       setPriorityFilter: priority =>
         dispatch({type: 'priorityFilterChanged', priority}),
+      setSortField: field => dispatch({type: 'sortFieldChanged', field}),
+      setSortDirection: direction =>
+        dispatch({type: 'sortDirectionChanged', direction}),
       clearFilters: () => dispatch({type: 'filtersCleared'}),
     }),
     [reload, taskState],

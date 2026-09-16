@@ -30,6 +30,16 @@ description: Ampliar y mantener la aplicación React Native RealPlazaTasks conse
 4. Inyectar la implementación en `App.tsx` o en un proveedor de composición, nunca dentro de la UI.
 5. No añadir autenticación, sincronización remota ni persistencia sin una decisión explícita fuera del alcance actual.
 
+## Conservar estados simulados verificables
+
+1. Tratar `normal`, `loading`, `empty` y `error` como respuestas del repositorio, no como contenido inventado dentro de una pantalla.
+2. Distinguir siempre el loading natural producido por latencia del escenario de carga persistente usado para inspección.
+3. Antes de renderizar datos derivados, resolver `idle/loading`, `error`, `success + []` y `success + datos`; no representar carga o error como estadísticas en cero.
+4. Mantener los controles para forzar escenarios detrás de `__DEV__`: deben ser visibles en Debug y estar ausentes en Release.
+5. Documentar en el README cómo seleccionar cada escenario, qué respuesta simula y cómo volver a `Normal`.
+6. Registrar que reintentar bajo un escenario persistente reproduce la misma respuesta; no presentarlo como recuperación real.
+7. Comprobar cada estado tanto en la lista como en cualquier otra pantalla que consuma tareas.
+
 ## Agregar mutaciones
 
 No asumir que CRUD significa cuatro pantallas. Confirmar primero operaciones, reglas de validación y recuperación de errores en memoria. Modelar acciones del reducer como eventos del dominio y cubrir éxito, error y actualización optimista si corresponde.
@@ -53,3 +63,13 @@ xcodebuild -workspace ios/RealPlazaTasks.xcworkspace -scheme RealPlazaTasks -con
 ```
 
 Registrar por separado “compila” y “fue ejecutada en emulador/dispositivo”; no presentarlos como la misma evidencia.
+
+Al registrar estados de datos, separar también:
+
+- comportamiento natural del mock normal;
+- escenario forzado en Debug;
+- comportamiento disponible pero no provocable artificialmente en Release;
+- prueba automatizada;
+- inspección visual real.
+
+Si una prueba fue creada con asistencia de IA, declararlo sin restarle valor técnico. Afirmar revisión manual sólo después de leer el caso, comprobar que valida comportamiento relevante, ejecutarlo y contrastarlo con el flujo cuando corresponda.

@@ -17,6 +17,8 @@ import type {MockScenario} from '../data/MockTaskRepository';
 import type {TaskPriority, TaskStatus} from '../domain/task';
 import {priorityLabels, statusLabels} from '../domain/taskLabels';
 import {FilterControl} from '../components/FilterControl';
+import {SearchControl} from '../components/SearchControl';
+import {SortControls} from '../components/SortControls';
 import {SummaryStrip} from '../components/SummaryStrip';
 import {TaskRow} from '../components/TaskRow';
 import {TaskLoadingState, TaskScreenState} from '../components/TaskScreenState';
@@ -52,13 +54,23 @@ export function TaskListScreen({
   const insets = useSafeAreaInsets();
   const {fontScale} = useWindowDimensions();
   const {colors} = useAppTheme();
-  const {state, reload, setStatusFilter, setPriorityFilter, clearFilters} =
-    useTasks();
+  const {
+    state,
+    reload,
+    setQueryFilter,
+    setStatusFilter,
+    setPriorityFilter,
+    setSortField,
+    setSortDirection,
+    clearFilters,
+  } = useTasks();
   const [showDemoControls, setShowDemoControls] = useState(false);
   const colorStyles = StyleSheet.create({scenarioLabel: {color: colors.text}});
   const isLoading = state.loadStatus === 'loading';
   const filtersAreActive =
-    state.filters.status !== 'all' || state.filters.priority !== 'all';
+    state.filters.query.trim().length > 0 ||
+    state.filters.status !== 'all' ||
+    state.filters.priority !== 'all';
 
   const header = (
     <View>
@@ -85,6 +97,11 @@ export function TaskListScreen({
 
       <SummaryStrip statistics={state.statistics} />
 
+      <SearchControl
+        value={state.filters.query}
+        onChange={setQueryFilter}
+      />
+
       <View style={[styles.filters, fontScale >= 1.2 && styles.filtersLargeText]}>
         <View style={[styles.filterSlot, fontScale >= 1.2 && styles.filterSlotLargeText]}>
           <FilterControl
@@ -104,6 +121,13 @@ export function TaskListScreen({
         </View>
       </View>
 
+      <SortControls
+        field={state.sort.field}
+        direction={state.sort.direction}
+        onFieldChange={setSortField}
+        onDirectionChange={setSortDirection}
+      />
+
       {__DEV__ ? (
         <View style={styles.demoArea}>
           <Pressable
@@ -116,7 +140,7 @@ export function TaskListScreen({
           </Pressable>
           {showDemoControls ? (
             <View style={styles.scenarios}>
-              {(['normal', 'empty', 'error'] as const).map(value => (
+              {(['normal', 'loading', 'empty', 'error'] as const).map(value => (
                 <Pressable
                   key={value}
                   accessibilityRole="radio"
@@ -136,7 +160,14 @@ export function TaskListScreen({
                         ? styles.selectedScenarioLabel
                         : colorStyles.scenarioLabel,
                     ]}>
-                    {{normal: 'Normal', empty: 'Vacío', error: 'Error'}[value]}
+                    {
+                      {
+                        normal: 'Normal',
+                        loading: 'Carga',
+                        empty: 'Vacío',
+                        error: 'Error',
+                      }[value]
+                    }
                   </Text>
                 </Pressable>
               ))}
@@ -204,7 +235,12 @@ const styles = StyleSheet.create({
   filterSlotLargeText: {flex: 0, width: '100%'},
   demoArea: {alignItems: 'flex-start', marginBottom: spacing.md},
   demoToggle: {fontSize: 14, textDecorationLine: 'underline'},
-  scenarios: {flexDirection: 'row', gap: spacing.xs, marginTop: spacing.sm},
+  scenarios: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.xs,
+    marginTop: spacing.sm,
+  },
   scenarioButton: {minHeight: 48, justifyContent: 'center', paddingHorizontal: spacing.md, borderRadius: radii.pill},
   scenarioLabel: {fontWeight: '600'},
   selectedScenarioLabel: {color: '#FFFFFF'},

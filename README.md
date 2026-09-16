@@ -1,6 +1,6 @@
 # Real Plaza Tasks
 
-MVP de un panel móvil de tareas desarrollado para el challenge técnico de React Native. La app es de solo lectura: permite listar, filtrar, consultar detalle y visualizar estadísticas usando datos locales con latencia simulada.
+MVP de un panel móvil de tareas desarrollado para el challenge técnico de React Native. `main` conserva la entrega de solo lectura; `feature/plus` agrega búsqueda, ordenamiento y edición local sobre los mismos datos mock.
 
 > Proyecto demostrativo. No utiliza datos, servicios, logotipos ni activos oficiales de Real Plaza.
 
@@ -57,11 +57,15 @@ En iOS se debe abrir `ios/RealPlazaTasks.xcworkspace`, nunca el `.xcodeproj`, de
 - Filtros combinables por estado y prioridad.
 - Detalle completo de una tarea.
 - Estadísticas por estado y prioridad, dibujadas con componentes nativos.
-- Estados explícitos de carga, error, lista vacía y filtros sin resultados.
-- Escenarios de demostración para `normal`, `vacío` y `error` disponibles en builds de desarrollo.
+- Estados explícitos de carga, error y vacío tanto en la lista como en Estadísticas, además de filtros sin resultados.
+- Escenarios de demostración para `normal`, `carga`, `vacío` y `error` disponibles en builds de desarrollo.
 - Modo claro/oscuro y adaptación al tamaño de texto del sistema.
 
 No incluye backend, autenticación, múltiples usuarios ni CRUD porque el brief los deja fuera de alcance. En particular, la app no permite agregar tareas.
+
+### Rama `feature/plus`
+
+Esta rama agrega búsqueda combinable por título, área o responsable, ordenamiento por estado o prioridad en ambas direcciones y edición local. Se pueden modificar título, descripción, área, responsable, estado y prioridad. Las fechas se mantienen sin cambios y todo el estado continúa siendo local y en memoria.
 
 ## Requisitos
 
@@ -112,7 +116,25 @@ La app sigue la apariencia del sistema. Para revisar el modo oscuro en iOS, acti
 
 El ajuste de inset bajo el `large title` de iOS fue corregido con el comportamiento automático del `FlatList` y validado nuevamente desde un lanzamiento limpio. El contador, el resumen, los filtros y la lista quedan visibles desde la primera vista.
 
-En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, vacío y error; el estado de carga aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
+En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, carga persistente, vacío y error. La carga normal también aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
+
+### Reproducir los estados simulados
+
+Con el dataset normal de 12 tareas, error y vacío no ocurren espontáneamente. Se incluyen como respuestas configurables del repositorio mock para demostrar cómo reaccionaría la interfaz ante una futura API.
+
+1. Ejecutar la app con `npm run ios` o `npm run android`; ambos comandos generan una build Debug.
+2. Abrir **Probar estados de la interfaz** en la pantalla de tareas.
+3. Elegir el escenario.
+4. Para revisar su variante de Estadísticas, abrir **Estadísticas** sin cambiar el escenario.
+
+| Escenario | Respuesta simulada | Resultado visible |
+| --- | --- | --- |
+| Normal | 12 tareas después de la latencia | Lista y estadísticas completas |
+| Carga | Promesa deliberadamente pendiente | Esqueletos persistentes para inspección |
+| Vacío | Respuesta exitosa con `[]` | Empty state, no estadísticas en cero |
+| Error | Promesa rechazada | Mensaje recuperable y acción de reintento |
+
+Mientras **Vacío** o **Error** permanezcan seleccionados, volver a cargar o reintentar reproduce la misma respuesta. Seleccionar **Normal** restaura el flujo exitoso. En Release no se exponen controles para provocar estados artificiales; la lógica de presentación permanece preparada para respuestas reales del repositorio.
 
 ## Calidad
 
@@ -123,7 +145,7 @@ npm test -- --runInBand
 cd android && ./gradlew assembleDebug
 ```
 
-Las 13 pruebas Jest cubren repositorio mock, reducer, filtros, búsqueda por id, estadísticas, estados de pantalla y la composición principal de proveedores y navegación.
+Las 23 pruebas Jest cubren repositorio mock, reducer, filtros, búsqueda, ordenamiento estable, edición local, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación.
 
 ## Arquitectura
 
@@ -174,4 +196,4 @@ Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `
 
 ## Uso de IA
 
-Se utilizó IA como apoyo para analizar el brief, explorar direcciones visuales, implementar, revisar y documentar. Las decisiones se conservan en la bitácora y se validan mediante tipos, pruebas y builds nativos. La IA no reemplaza la responsabilidad técnica: cada elección debe poder explicarse, reproducirse y modificarse desde el código.
+Se utilizó IA como apoyo para analizar el brief, explorar direcciones visuales, implementar, crear pruebas, revisar y documentar. Las pruebas asistidas por IA se revisaron manualmente para comprobar que validaran comportamientos relevantes, se ejecutaron localmente y se contrastaron con recorridos funcionales en el simulador. La IA no reemplaza la responsabilidad técnica: cada elección debe poder explicarse, reproducirse y modificarse desde el código.

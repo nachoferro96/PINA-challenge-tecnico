@@ -11,7 +11,9 @@ describe('TaskScreenState', () => {
     );
 
     expect(screen.getByText('No hay coincidencias')).toBeTruthy();
-    fireEvent.press(screen.getByRole('button', {name: 'Limpiar filtros'}));
+    fireEvent.press(
+      screen.getByRole('button', {name: 'Limpiar búsqueda y filtros'}),
+    );
     expect(onAction).toHaveBeenCalledTimes(1);
   });
 

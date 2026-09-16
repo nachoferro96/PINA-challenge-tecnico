@@ -24,14 +24,13 @@ export function TaskScreenState({kind, message, onAction}: TaskScreenStateProps)
     },
     noResults: {
       title: 'No hay coincidencias',
-      body: 'Probá con otra combinación de estado y prioridad.',
-      action: 'Limpiar filtros',
+      body: 'Probá con otro término o ajustá los filtros.',
+      action: 'Limpiar búsqueda y filtros',
     },
   }[kind];
 
   return (
     <View style={styles.container}>
-      <View style={[styles.symbol, {borderColor: kind === 'error' ? colors.accent : colors.info}]} />
       <Text style={[styles.title, {color: colors.text}]}>{content.title}</Text>
       <Text style={[styles.body, {color: colors.textSecondary}]}>{content.body}</Text>
       <Pressable
@@ -59,8 +58,7 @@ export function TaskLoadingState() {
 }
 
 const styles = StyleSheet.create({
-  container: {alignItems: 'center', paddingHorizontal: spacing.xl, paddingVertical: 64},
-  symbol: {width: 34, height: 34, borderRadius: 17, borderWidth: 4, marginBottom: spacing.lg},
+  container: {alignItems: 'center', paddingHorizontal: spacing.xl, paddingVertical: 80},
   title: {fontSize: 22, lineHeight: 28, fontWeight: '700', textAlign: 'center'},
   body: {fontSize: 16, lineHeight: 23, textAlign: 'center', marginTop: spacing.xs, maxWidth: 360},
   button: {minHeight: 48, justifyContent: 'center', paddingHorizontal: spacing.lg, borderRadius: radii.md, marginTop: spacing.lg},

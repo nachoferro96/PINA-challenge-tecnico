@@ -37,12 +37,52 @@ describe('taskReducer', () => {
       type: 'priorityFilterChanged',
       priority: 'high',
     });
+    const withQuery = taskReducer(withBoth, {
+      type: 'queryFilterChanged',
+      query: 'seguridad',
+    });
 
-    expect(withBoth.filters).toEqual({status: 'pending', priority: 'high'});
-    expect(taskReducer(withBoth, {type: 'filtersCleared'}).filters).toEqual({
+    expect(withQuery.filters).toEqual({
+      query: 'seguridad',
+      status: 'pending',
+      priority: 'high',
+    });
+    expect(taskReducer(withQuery, {type: 'filtersCleared'}).filters).toEqual({
+      query: '',
       status: 'all',
       priority: 'all',
     });
   });
-});
 
+  it('actualiza una tarea sin mutar las demás', () => {
+    const loaded = taskReducer(initialTaskState, {
+      type: 'loadSucceeded',
+      tasks: mockTasks,
+    });
+    const updatedTask = {...mockTasks[0], title: 'Título actualizado'};
+    const updated = taskReducer(loaded, {
+      type: 'taskUpdated',
+      task: updatedTask,
+    });
+
+    expect(updated.tasks[0].title).toBe('Título actualizado');
+    expect(updated.tasks[1]).toBe(mockTasks[1]);
+    expect(loaded.tasks[0].title).toBe(mockTasks[0].title);
+  });
+
+  it('actualiza el criterio y la dirección de orden', () => {
+    const byPriority = taskReducer(initialTaskState, {
+      type: 'sortFieldChanged',
+      field: 'priority',
+    });
+    const descending = taskReducer(byPriority, {
+      type: 'sortDirectionChanged',
+      direction: 'descending',
+    });
+
+    expect(descending.sort).toEqual({
+      field: 'priority',
+      direction: 'descending',
+    });
+  });
+});

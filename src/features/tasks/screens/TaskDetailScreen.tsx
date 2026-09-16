@@ -1,10 +1,10 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import type {RootStackParamList} from '../../../app/navigation/types';
-import {spacing, useAppTheme} from '../../../shared/theme/theme';
+import {radii, spacing, useAppTheme} from '../../../shared/theme/theme';
 import {formatLongTaskDate} from '../../../shared/utils/dateFormat';
 import {TaskBadge} from '../components/TaskBadge';
 import {useTasks} from '../state/TaskContext';
@@ -12,7 +12,7 @@ import {findTaskById} from '../state/taskSelectors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetail'>;
 
-export function TaskDetailScreen({route}: Props) {
+export function TaskDetailScreen({navigation, route}: Props) {
   const insets = useSafeAreaInsets();
   const {colors} = useAppTheme();
   const {state} = useTasks();
@@ -57,8 +57,18 @@ export function TaskDetailScreen({route}: Props) {
           </View>
         ))}
       </View>
+
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => navigation.navigate('EditTask', {taskId: task.id})}
+        style={({pressed}) => [
+          styles.editButton,
+          {backgroundColor: pressed ? colors.accentSoft : colors.accent},
+        ]}>
+        <Text style={[styles.editButtonText, {color: colors.background}]}>Editar tarea</Text>
+      </Pressable>
       <Text style={[styles.readOnly, {color: colors.textSecondary}]}>
-        Vista de solo lectura · datos demostrativos
+        Cambios locales durante esta sesión · datos demostrativos
       </Text>
     </ScrollView>
   );
@@ -74,6 +84,15 @@ const styles = StyleSheet.create({
   detailRow: {paddingVertical: spacing.md, borderBottomWidth: StyleSheet.hairlineWidth},
   detailLabel: {fontSize: 14, marginBottom: spacing.xxs},
   detailValue: {fontSize: 17, lineHeight: 23},
+  editButton: {
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radii.md,
+    marginTop: spacing.xl,
+    paddingHorizontal: spacing.lg,
+  },
+  editButtonText: {fontSize: 17, fontWeight: '700'},
   readOnly: {fontSize: 13, textAlign: 'center', marginTop: spacing.xl},
   missing: {flex: 1, justifyContent: 'center', alignItems: 'center', padding: spacing.xl},
   missingTitle: {fontSize: 22, fontWeight: '700', marginBottom: spacing.xs},
