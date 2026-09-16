@@ -2,8 +2,6 @@
 
 MVP móvil desarrollado para el challenge técnico de React Native. Presenta tareas operativas con datos locales simulados: permite listar, filtrar, consultar el detalle y revisar estadísticas.
 
-> Proyecto demostrativo. No utiliza datos, servicios, logotipos ni activos oficiales de Real Plaza.
-
 ## Ramas
 
 - `main`: entrega evaluable, de solo lectura.
