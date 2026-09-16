@@ -1,7 +1,7 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 
-import {TaskStatisticsScreen} from './TaskStatisticsScreen';
+import { TaskStatisticsScreen } from './TaskStatisticsScreen';
 
 const mockUseTasks = jest.fn();
 
@@ -10,13 +10,13 @@ jest.mock('../state/TaskContext', () => ({
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
-  useSafeAreaInsets: () => ({top: 0, right: 0, bottom: 0, left: 0}),
+  useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
 }));
 
 const emptyStatistics = {
   total: 0,
-  byStatus: {pending: 0, inProgress: 0, completed: 0},
-  byPriority: {low: 0, medium: 0, high: 0},
+  byStatus: { pending: 0, in_progress: 0, done: 0 },
+  byPriority: { low: 0, medium: 0, high: 0 },
 };
 
 describe('TaskStatisticsScreen', () => {
@@ -34,6 +34,7 @@ describe('TaskStatisticsScreen', () => {
     const screen = await render(<TaskStatisticsScreen />);
 
     expect(screen.getByLabelText('Cargando estadísticas')).toBeTruthy();
+    expect(screen.queryByText('0')).toBeNull();
   });
 
   it('explica el error y permite reintentar', async () => {
@@ -50,9 +51,11 @@ describe('TaskStatisticsScreen', () => {
 
     const screen = await render(<TaskStatisticsScreen />);
 
-    expect(screen.getByText('No pudimos calcular las estadísticas')).toBeTruthy();
+    expect(
+      screen.getByText('No pudimos calcular las estadísticas'),
+    ).toBeTruthy();
     expect(screen.getByText('Error simulado')).toBeTruthy();
-    fireEvent.press(screen.getByRole('button', {name: 'Reintentar'}));
+    fireEvent.press(screen.getByRole('button', { name: 'Reintentar' }));
     expect(reload).toHaveBeenCalledTimes(1);
   });
 
@@ -70,6 +73,8 @@ describe('TaskStatisticsScreen', () => {
     const screen = await render(<TaskStatisticsScreen />);
 
     expect(screen.getByText('No hay tareas para analizar')).toBeTruthy();
-    expect(screen.getByRole('button', {name: 'Volver a cargar'})).toBeTruthy();
+    expect(
+      screen.getByRole('button', { name: 'Volver a cargar' }),
+    ).toBeTruthy();
   });
 });

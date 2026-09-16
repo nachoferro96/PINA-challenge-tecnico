@@ -10,12 +10,12 @@ export function SummaryStrip({statistics}: {statistics: TaskStatistics}) {
     {label: 'Pendientes', value: statistics.byStatus.pending, color: colors.accent},
     {
       label: 'En progreso',
-      value: statistics.byStatus.inProgress,
+      value: statistics.byStatus.in_progress,
       color: colors.warning,
     },
     {
       label: 'Completadas',
-      value: statistics.byStatus.completed,
+      value: statistics.byStatus.done,
       color: colors.success,
     },
   ];

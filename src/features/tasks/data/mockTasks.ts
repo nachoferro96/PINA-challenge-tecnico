@@ -18,7 +18,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Verificar funcionamiento de ascensores',
     description:
       'Completar la ronda operativa, comprobar indicadores y dejar constancia de cualquier anomalía.',
-    status: 'inProgress',
+    status: 'in_progress',
     priority: 'medium',
     area: 'Torre A',
     assignee: 'Luis Mendoza',
@@ -54,7 +54,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Controlar limpieza en zona de comidas',
     description:
       'Confirmar el cumplimiento de la pauta de limpieza y registrar observaciones del recorrido.',
-    status: 'inProgress',
+    status: 'in_progress',
     priority: 'low',
     area: 'Zona de comidas',
     assignee: 'Valeria Torres',
@@ -78,7 +78,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Registrar temperatura de cámaras de frío',
     description:
       'Comparar las lecturas con el rango operativo y adjuntar la observación al registro del turno.',
-    status: 'completed',
+    status: 'done',
     priority: 'low',
     area: 'Cuarto técnico',
     assignee: 'Sofía Núñez',
@@ -90,7 +90,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Coordinar mantenimiento de escalera eléctrica',
     description:
       'Validar el perímetro de seguridad y acompañar la revisión preventiva del proveedor.',
-    status: 'inProgress',
+    status: 'in_progress',
     priority: 'high',
     area: 'Ingreso principal',
     assignee: 'Pedro Arias',
@@ -102,7 +102,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Cerrar reporte de incidencias del turno',
     description:
       'Consolidar las observaciones registradas y confirmar que cada incidencia tenga responsable.',
-    status: 'completed',
+    status: 'done',
     priority: 'medium',
     area: 'Administración',
     assignee: 'Gabriela León',
@@ -114,7 +114,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Confirmar protocolo de apertura',
     description:
       'Verificar que seguridad, limpieza y atención hayan completado los puntos críticos de apertura.',
-    status: 'completed',
+    status: 'done',
     priority: 'medium',
     area: 'Operaciones',
     assignee: 'Renzo Castillo',
@@ -126,7 +126,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Actualizar inventario de radios',
     description:
       'Contrastar radios entregados y disponibles antes del relevo del equipo de seguridad.',
-    status: 'inProgress',
+    status: 'in_progress',
     priority: 'medium',
     area: 'Seguridad',
     assignee: 'Mariana Díaz',
@@ -138,7 +138,7 @@ export const mockTasks: readonly Task[] = [
     title: 'Revisar directorio de locales',
     description:
       'Comparar el directorio digital con el listado vigente y registrar diferencias para actualización.',
-    status: 'completed',
+    status: 'done',
     priority: 'low',
     area: 'Información',
     assignee: 'Nicolás Flores',

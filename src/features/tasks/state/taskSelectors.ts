@@ -20,8 +20,8 @@ const normalizeSearchValue = (value: string) =>
 
 const statusOrder: Record<TaskStatus, number> = {
   pending: 0,
-  inProgress: 1,
-  completed: 2,
+  in_progress: 1,
+  done: 2,
 };
 
 const priorityOrder: Record<TaskPriority, number> = {
@@ -61,13 +61,15 @@ export const sortTasks = (
       : (task: Task) => priorityOrder[task.priority];
 
   return tasks
-    .map((task, index) => ({task, index}))
+    .map((task, index) => ({ task, index }))
     .sort((left, right) => {
       const difference = getOrder(left.task) - getOrder(right.task);
 
-      return difference === 0 ? left.index - right.index : difference * direction;
+      return difference === 0
+        ? left.index - right.index
+        : difference * direction;
     })
-    .map(({task}) => task);
+    .map(({ task }) => task);
 };
 
 export const calculateTaskStatistics = (
@@ -87,8 +89,8 @@ export const calculateTaskStatistics = (
     }),
     {
       total: 0,
-      byStatus: {pending: 0, inProgress: 0, completed: 0},
-      byPriority: {low: 0, medium: 0, high: 0},
+      byStatus: { pending: 0, in_progress: 0, done: 0 },
+      byPriority: { low: 0, medium: 0, high: 0 },
     },
   );
 

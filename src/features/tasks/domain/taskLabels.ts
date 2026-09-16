@@ -2,8 +2,8 @@ import type {TaskPriority, TaskStatus} from './task';
 
 export const statusLabels: Record<TaskStatus, string> = {
   pending: 'Pendiente',
-  inProgress: 'En progreso',
-  completed: 'Completada',
+  in_progress: 'En progreso',
+  done: 'Completada',
 };
 
 export const priorityLabels: Record<TaskPriority, string> = {
@@ -11,4 +11,3 @@ export const priorityLabels: Record<TaskPriority, string> = {
   medium: 'Media',
   high: 'Alta',
 };
-

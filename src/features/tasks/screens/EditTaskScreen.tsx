@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,16 +10,16 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type {RootStackParamList} from '../../../app/navigation/types';
-import {radii, spacing, useAppTheme} from '../../../shared/theme/theme';
-import {FilterControl} from '../components/FilterControl';
-import type {TaskPriority, TaskStatus} from '../domain/task';
-import {priorityLabels, statusLabels} from '../domain/taskLabels';
-import {useTasks} from '../state/TaskContext';
-import {findTaskById} from '../state/taskSelectors';
+import type { RootStackParamList } from '../../../app/navigation/types';
+import { radii, spacing, useAppTheme } from '../../../shared/theme/theme';
+import { FilterControl } from '../components/FilterControl';
+import type { TaskPriority, TaskStatus } from '../domain/task';
+import { priorityLabels, statusLabels } from '../domain/taskLabels';
+import { useTasks } from '../state/TaskContext';
+import { findTaskById } from '../state/taskSelectors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditTask'>;
 
@@ -30,8 +30,8 @@ type FieldProps = Readonly<{
   multiline?: boolean;
 }>;
 
-const statusOptions = (['pending', 'inProgress', 'completed'] as const).map(
-  value => ({value, label: statusLabels[value]}),
+const statusOptions = (['pending', 'in_progress', 'done'] as const).map(
+  value => ({ value, label: statusLabels[value] }),
 );
 
 const priorityOptions = (['low', 'medium', 'high'] as const).map(value => ({
@@ -39,12 +39,14 @@ const priorityOptions = (['low', 'medium', 'high'] as const).map(value => ({
   label: priorityLabels[value],
 }));
 
-function TaskField({label, value, onChangeText, multiline}: FieldProps) {
-  const {colors} = useAppTheme();
+function TaskField({ label, value, onChangeText, multiline }: FieldProps) {
+  const { colors } = useAppTheme();
 
   return (
     <View style={styles.field}>
-      <Text style={[styles.label, {color: colors.textSecondary}]}>{label}</Text>
+      <Text style={[styles.label, { color: colors.textSecondary }]}>
+        {label}
+      </Text>
       <TextInput
         accessibilityLabel={label}
         multiline={multiline}
@@ -53,7 +55,7 @@ function TaskField({label, value, onChangeText, multiline}: FieldProps) {
         style={[
           styles.input,
           multiline && styles.multilineInput,
-          {backgroundColor: colors.surface, color: colors.text},
+          { backgroundColor: colors.surface, color: colors.text },
         ]}
         textAlignVertical={multiline ? 'top' : 'center'}
         value={value}
@@ -62,11 +64,11 @@ function TaskField({label, value, onChangeText, multiline}: FieldProps) {
   );
 }
 
-export function EditTaskScreen({navigation, route}: Props) {
+export function EditTaskScreen({ navigation, route }: Props) {
   const insets = useSafeAreaInsets();
-  const {fontScale} = useWindowDimensions();
-  const {colors} = useAppTheme();
-  const {state, updateTask} = useTasks();
+  const { fontScale } = useWindowDimensions();
+  const { colors } = useAppTheme();
+  const { state, updateTask } = useTasks();
   const task = findTaskById(state.tasks, route.params.taskId);
   const [title, setTitle] = useState(task?.title ?? '');
   const [description, setDescription] = useState(task?.description ?? '');
@@ -94,9 +96,13 @@ export function EditTaskScreen({navigation, route}: Props) {
 
   if (!task) {
     return (
-      <View style={[styles.missing, {backgroundColor: colors.background}]}>
-        <Text style={[styles.missingTitle, {color: colors.text}]}>Tarea no disponible</Text>
-        <Text style={[styles.helper, {color: colors.textSecondary}]}>No hay una tarea para editar.</Text>
+      <View style={[styles.missing, { backgroundColor: colors.background }]}>
+        <Text style={[styles.missingTitle, { color: colors.text }]}>
+          Tarea no disponible
+        </Text>
+        <Text style={[styles.helper, { color: colors.textSecondary }]}>
+          No hay una tarea para editar.
+        </Text>
       </View>
     );
   }
@@ -127,13 +133,15 @@ export function EditTaskScreen({navigation, route}: Props) {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 88 : 0}
-      style={[styles.flex, {backgroundColor: colors.background}]}>
+      style={[styles.flex, { backgroundColor: colors.background }]}
+    >
       <ScrollView
         contentContainerStyle={[
           styles.content,
-          {paddingBottom: insets.bottom + spacing.xl},
+          { paddingBottom: insets.bottom + spacing.xl },
         ]}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+      >
         <TaskField label="Título" value={title} onChangeText={setTitle} />
         <TaskField
           label="Descripción"
@@ -152,12 +160,14 @@ export function EditTaskScreen({navigation, route}: Props) {
           style={[
             styles.selectors,
             fontScale >= 1.2 && styles.selectorsLargeText,
-          ]}>
+          ]}
+        >
           <View
             style={[
               styles.selectorSlot,
               fontScale >= 1.2 && styles.selectorSlotLargeText,
-            ]}>
+            ]}
+          >
             <FilterControl
               label="Estado"
               value={status}
@@ -169,7 +179,8 @@ export function EditTaskScreen({navigation, route}: Props) {
             style={[
               styles.selectorSlot,
               fontScale >= 1.2 && styles.selectorSlotLargeText,
-            ]}>
+            ]}
+          >
             <FilterControl
               label="Prioridad"
               value={priority}
@@ -180,62 +191,69 @@ export function EditTaskScreen({navigation, route}: Props) {
         </View>
 
         {validationMessage ? (
-          <Text accessibilityRole="alert" style={[styles.error, {color: colors.accent}]}>
+          <Text
+            accessibilityRole="alert"
+            style={[styles.error, { color: colors.accent }]}
+          >
             {validationMessage}
           </Text>
         ) : null}
 
         <Pressable
           accessibilityRole="button"
-          accessibilityState={{disabled: !hasChanges}}
+          accessibilityState={{ disabled: !hasChanges }}
           disabled={!hasChanges}
           onPress={save}
-          style={({pressed}) => [
+          style={({ pressed }) => [
             styles.saveButton,
             {
               backgroundColor: !hasChanges
                 ? colors.surfaceStrong
                 : pressed
-                  ? colors.accentSoft
-                  : colors.accent,
+                ? colors.accentSoft
+                : colors.accent,
             },
-          ]}>
+          ]}
+        >
           <Text
             style={[
               styles.saveLabel,
-              {color: hasChanges ? colors.background : colors.textSecondary},
-            ]}>
+              { color: hasChanges ? colors.background : colors.textSecondary },
+            ]}
+          >
             Guardar cambios
           </Text>
         </Pressable>
-        <Text style={[styles.helper, {color: colors.textSecondary}]}>Los cambios se conservan mientras la app permanezca abierta.</Text>
+        <Text style={[styles.helper, { color: colors.textSecondary }]}>
+          Los cambios se conservan mientras la app permanezca abierta.
+        </Text>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  flex: {flex: 1},
-  content: {paddingHorizontal: spacing.lg, paddingTop: spacing.lg},
-  field: {marginBottom: spacing.md},
-  label: {fontSize: 15, marginBottom: spacing.xs},
+  flex: { flex: 1 },
+  content: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg },
+  field: { marginBottom: spacing.md },
+  label: { fontSize: 15, marginBottom: spacing.xs },
   input: {
     minHeight: 52,
     borderRadius: radii.md,
     paddingHorizontal: spacing.md,
     fontSize: 17,
   },
-  multilineInput: {minHeight: 112, paddingTop: spacing.sm},
+  multilineInput: { minHeight: 112, paddingTop: spacing.sm },
   selectors: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: spacing.md,
     marginTop: spacing.xs,
   },
-  selectorsLargeText: {flexDirection: 'column'},
-  selectorSlot: {flex: 1},
-  selectorSlotLargeText: {flex: 0, width: '100%'},
-  error: {fontSize: 15, lineHeight: 21, marginTop: spacing.md},
+  selectorsLargeText: { flexDirection: 'column' },
+  selectorSlot: { flex: 1 },
+  selectorSlotLargeText: { flex: 0, width: '100%' },
+  error: { fontSize: 15, lineHeight: 21, marginTop: spacing.md },
   saveButton: {
     minHeight: 52,
     alignItems: 'center',
@@ -244,8 +262,18 @@ const styles = StyleSheet.create({
     marginTop: spacing.xl,
     paddingHorizontal: spacing.lg,
   },
-  saveLabel: {fontSize: 17, fontWeight: '700'},
-  helper: {fontSize: 14, lineHeight: 20, textAlign: 'center', marginTop: spacing.sm},
-  missing: {flex: 1, justifyContent: 'center', alignItems: 'center', padding: spacing.xl},
-  missingTitle: {fontSize: 22, fontWeight: '700'},
+  saveLabel: { fontSize: 17, fontWeight: '700' },
+  helper: {
+    fontSize: 14,
+    lineHeight: 20,
+    textAlign: 'center',
+    marginTop: spacing.sm,
+  },
+  missing: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.xl,
+  },
+  missingTitle: { fontSize: 22, fontWeight: '700' },
 });

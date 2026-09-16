@@ -1,15 +1,20 @@
-import {mockTasks} from '../data/mockTasks';
-import {initialTaskState, taskReducer} from './taskReducer';
+import { mockTasks } from '../data/mockTasks';
+import { initialTaskState, taskReducer } from './taskReducer';
 
 describe('taskReducer', () => {
   it('representa la secuencia de carga exitosa', () => {
-    const loading = taskReducer(initialTaskState, {type: 'loadRequested'});
+    const stateWithData = taskReducer(initialTaskState, {
+      type: 'loadSucceeded',
+      tasks: mockTasks,
+    });
+    const loading = taskReducer(stateWithData, { type: 'loadRequested' });
     const success = taskReducer(loading, {
       type: 'loadSucceeded',
       tasks: mockTasks,
     });
 
     expect(loading.loadStatus).toBe('loading');
+    expect(loading.tasks).toEqual([]);
     expect(success.loadStatus).toBe('success');
     expect(success.tasks).toHaveLength(12);
   });
@@ -47,19 +52,18 @@ describe('taskReducer', () => {
       status: 'pending',
       priority: 'high',
     });
-    expect(taskReducer(withQuery, {type: 'filtersCleared'}).filters).toEqual({
+    expect(taskReducer(withQuery, { type: 'filtersCleared' }).filters).toEqual({
       query: '',
       status: 'all',
       priority: 'all',
     });
   });
-
   it('actualiza una tarea sin mutar las demás', () => {
     const loaded = taskReducer(initialTaskState, {
       type: 'loadSucceeded',
       tasks: mockTasks,
     });
-    const updatedTask = {...mockTasks[0], title: 'Título actualizado'};
+    const updatedTask = { ...mockTasks[0], title: 'Título actualizado' };
     const updated = taskReducer(loaded, {
       type: 'taskUpdated',
       task: updatedTask,

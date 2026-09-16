@@ -111,6 +111,7 @@ En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, despu
 
 - Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
 - iOS: compilado y ejecutado en iPhone 16 Pro Simulator con iOS 18.4 y Xcode 16.3. Se verificaron lista, filtros combinados, detalle, Back nativo, estadísticas, carga, error, vacío, sin resultados, modo oscuro y Dynamic Type.
+- Revalidación de `main`: loading, error y empty de Estadísticas se inspeccionaron en iPhone 16 Plus Simulator con iOS 18.4; al finalizar se restauró el escenario normal.
 
 La app sigue la apariencia del sistema. Para revisar el modo oscuro en iOS, activar `Settings > Display & Brightness > Dark` dentro del simulador; no requiere una configuración propia de la app.
 
@@ -127,14 +128,14 @@ Con el dataset normal de 12 tareas, error y vacío no ocurren espontáneamente. 
 3. Elegir el escenario.
 4. Para revisar su variante de Estadísticas, abrir **Estadísticas** sin cambiar el escenario.
 
-| Escenario | Respuesta simulada | Resultado visible |
-| --- | --- | --- |
-| Normal | 12 tareas después de la latencia | Lista y estadísticas completas |
-| Carga | Promesa deliberadamente pendiente | Esqueletos persistentes para inspección |
-| Vacío | Respuesta exitosa con `[]` | Empty state, no estadísticas en cero |
-| Error | Promesa rechazada | Mensaje recuperable y acción de reintento |
+| Escenario | Respuesta simulada                | Resultado visible                         |
+| --------- | --------------------------------- | ----------------------------------------- |
+| Normal    | 12 tareas después de la latencia  | Lista y estadísticas completas            |
+| Carga     | Promesa deliberadamente pendiente | Esqueletos persistentes para inspección   |
+| Vacío     | Respuesta exitosa con `[]`        | Empty state, no estadísticas en cero      |
+| Error     | Promesa rechazada                 | Mensaje recuperable y acción de reintento |
 
-Mientras **Vacío** o **Error** permanezcan seleccionados, volver a cargar o reintentar reproduce la misma respuesta. Seleccionar **Normal** restaura el flujo exitoso. En Release no se exponen controles para provocar estados artificiales; la lógica de presentación permanece preparada para respuestas reales del repositorio.
+Mientras **Carga**, **Vacío** o **Error** estén seleccionados, volver a cargar o reintentar reproduce el escenario. Seleccionar **Normal** restaura el flujo exitoso. En Release no se exponen controles para provocar estados artificiales; la lógica de presentación permanece preparada para respuestas reales del repositorio.
 
 ## Calidad
 
@@ -145,7 +146,7 @@ npm test -- --runInBand
 cd android && ./gradlew assembleDebug
 ```
 
-Las 23 pruebas Jest cubren repositorio mock, reducer, filtros, búsqueda, ordenamiento estable, edición local, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación.
+Las pruebas Jest cubren contrato mínimo y cobertura del mock, repositorio, reducer, filtros, búsqueda, ordenamiento estable, edición local, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación.
 
 ## Arquitectura
 
@@ -176,13 +177,28 @@ src/
 
 ## Modelo mock
 
+El dominio conserva literalmente la estructura mínima requerida por el brief:
+
+```ts
+type Task = {
+  id: string;
+  title: string;
+  description: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in_progress' | 'done';
+  createdAt: string;
+};
+```
+
+Los mismos valores de `status` se mantienen en el archivo mock y en los selectores. La traducción a “Pendiente”, “En progreso” y “Completada” ocurre únicamente en la capa de presentación.
+
 El modelo mínimo se extendió con:
 
 - `area`: aporta contexto operativo al listado y detalle.
 - `assignee`: permite identificar responsabilidad sin introducir múltiples sesiones de usuario.
 - `dueAt`: diferencia vencimiento de `createdAt` y permite una lectura temporal útil.
 
-Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `completed + high` se deja deliberadamente sin datos para que el estado requerido de filtro sin resultados sea reproducible; aun así, el conjunto cubre por separado todos los estados y prioridades pedidos.
+Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `done + high` se deja deliberadamente sin datos para que el estado requerido de filtro sin resultados sea reproducible; aun así, el conjunto cubre por separado todos los estados y prioridades pedidos.
 
 ## Documentación
 

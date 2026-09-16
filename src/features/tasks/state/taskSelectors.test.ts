@@ -1,4 +1,4 @@
-import {mockTasks} from '../data/mockTasks';
+import { mockTasks } from '../data/mockTasks';
 import {
   calculateTaskStatistics,
   filterTasks,
@@ -10,7 +10,7 @@ describe('task selectors', () => {
   it('combina los filtros de estado y prioridad', () => {
     const result = filterTasks(mockTasks, {
       query: '',
-      status: 'completed',
+      status: 'done',
       priority: 'high',
     });
 
@@ -28,17 +28,17 @@ describe('task selectors', () => {
   });
 
   it('busca por título, área o responsable sin distinguir tildes ni mayúsculas', () => {
-    const openFilters = {status: 'all', priority: 'all'} as const;
+    const openFilters = { status: 'all', priority: 'all' } as const;
 
     expect(
-      filterTasks(mockTasks, {...openFilters, query: 'SEÑALIZACION'}),
+      filterTasks(mockTasks, { ...openFilters, query: 'SEÑALIZACION' }),
     ).toHaveLength(1);
-    expect(filterTasks(mockTasks, {...openFilters, query: 'sotano'})).toHaveLength(
-      1,
-    );
-    expect(filterTasks(mockTasks, {...openFilters, query: 'sofia nunez'})).toHaveLength(
-      1,
-    );
+    expect(
+      filterTasks(mockTasks, { ...openFilters, query: 'sotano' }),
+    ).toHaveLength(1);
+    expect(
+      filterTasks(mockTasks, { ...openFilters, query: 'sofia nunez' }),
+    ).toHaveLength(1);
   });
 
   it('combina la búsqueda con estado y prioridad', () => {
@@ -93,8 +93,8 @@ describe('task selectors', () => {
 
     expect(statistics).toEqual({
       total: 12,
-      byStatus: {pending: 4, inProgress: 4, completed: 4},
-      byPriority: {low: 4, medium: 5, high: 3},
+      byStatus: { pending: 4, in_progress: 4, done: 4 },
+      byPriority: { low: 4, medium: 5, high: 3 },
     });
   });
 
