@@ -1,209 +1,86 @@
-# Real Plaza Tasks
+# Real Plaza Tasks — feature/plus
 
-MVP de un panel móvil de tareas desarrollado para el challenge técnico de React Native. `main` conserva la entrega de solo lectura; `feature/plus` agrega búsqueda, ordenamiento y edición local sobre los mismos datos mock.
+Rama opcional de mejora sobre el MVP entregable de [`main`](https://github.com/nachoferro96/PINA-challenge-tecnico/tree/main). Conserva los datos mock y el alcance sin backend, pero agrega funcionalidades locales para mostrar cómo podría evolucionar la app.
 
 > Proyecto demostrativo. No utiliza datos, servicios, logotipos ni activos oficiales de Real Plaza.
 
-La rama opcional [`feature/plus`](https://github.com/nachoferro96/PINA-challenge-tecnico/tree/feature/plus) reúne mejoras que agregué sin modificar el alcance evaluable de `main`. Incluye búsqueda, ordenamiento y edición local durante la sesión; su propio README describe el detalle de esas funcionalidades.
+## Incluido en esta rama
 
-## Inicio rápido
+- Búsqueda por título, área o responsable, tolerante a mayúsculas y tildes.
+- Ordenamiento por estado o prioridad, ascendente o descendente.
+- Edición local de título, descripción, área, responsable, estado y prioridad.
+- Actualización consistente de lista, detalle y estadísticas durante la sesión.
 
-### iOS — plataforma principal validada
+No incluye altas, borrado, backend ni persistencia: los cambios se reinician al relanzar la app.
 
-Requiere macOS, Xcode 16.3 o compatible, un runtime de iOS instalado y CocoaPods.
+## Requisitos
+
+- Node.js 20 o superior y npm.
+- iOS: macOS, Xcode 16.3 o compatible, runtime de iOS y CocoaPods.
+- Android: JDK 17, Android Studio/SDK y un emulador o dispositivo iniciado.
+- Watchman recomendado en macOS.
+
+React Native está fijado en `0.83.1`; `react-native-screens` usa `4.25.0` por compatibilidad con esa versión.
+
+## Ejecutar
+
+Instalar dependencias:
 
 ```bash
 npm install
+```
+
+### iOS
+
+```bash
 bundle install
 npm run ios:pods
-```
-
-En una terminal, iniciar Metro:
-
-```bash
-npm start
-```
-
-En otra terminal, ejecutar el simulador:
-
-```bash
-npm run ios
-```
-
-### Android — mismo repositorio
-
-Requiere JDK 17, Android Studio/SDK y un emulador o dispositivo iniciado.
-
-```bash
-npm install
 npm start
 ```
 
 En otra terminal:
 
 ```bash
+npm run ios
+```
+
+Abrir siempre `ios/RealPlazaTasks.xcworkspace`, nunca el `.xcodeproj`.
+
+### Android
+
+Con Metro ejecutándose:
+
+```bash
 npm run android
 ```
 
-Para compilar el APK debug sin abrir el emulador:
+Para generar un APK Debug:
 
 ```bash
 npm run android:build
 ```
 
-En iOS se debe abrir `ios/RealPlazaTasks.xcworkspace`, nunca el `.xcodeproj`, después de instalar Pods.
+## Estados simulados
 
-## Alcance
+En builds Debug, **Probar estados de la interfaz** permite seleccionar normal, carga persistente, vacío o error. El control inicia colapsado y no existe en Release.
 
-- 12 tareas mock que cubren todos los estados y prioridades requeridos.
-- Filtros combinables por estado y prioridad.
-- Detalle completo de una tarea.
-- Estadísticas por estado y prioridad, dibujadas con componentes nativos.
-- Estados explícitos de carga, error y vacío tanto en la lista como en Estadísticas, además de filtros sin resultados.
-- Escenarios de demostración para `normal`, `carga`, `vacío` y `error` disponibles en builds de desarrollo.
-- Modo claro/oscuro y adaptación al tamaño de texto del sistema.
+| Escenario | Resultado                       |
+| --------- | ------------------------------- |
+| Normal    | 12 tareas tras 700 ms           |
+| Carga     | Esqueletos persistentes         |
+| Vacío     | Respuesta exitosa sin tareas    |
+| Error     | Mensaje recuperable y reintento |
 
-No incluye backend, autenticación, múltiples usuarios ni CRUD porque el brief los deja fuera de alcance. En particular, `main` no permite agregar ni editar tareas. La versión `feature/plus` habilita edición local durante la sesión, pero tampoco incorpora altas de tareas ni persistencia.
+Seleccionar **Normal** restaura el flujo exitoso.
 
-### Rama `feature/plus`
-
-Esta rama agrega búsqueda combinable por título, área o responsable, ordenamiento por estado o prioridad en ambas direcciones y edición local. Se pueden modificar título, descripción, área, responsable, estado y prioridad. Las fechas se mantienen sin cambios y todo el estado continúa siendo local y en memoria.
-
-## Requisitos
-
-- Node.js 20 o superior.
-- npm.
-- Watchman recomendado en macOS.
-- Android: JDK 17, Android Studio/SDK y un emulador o dispositivo.
-- iOS: macOS, Xcode 16.3 o compatible y un runtime de iOS instalado.
-
-La versión de React Native está fijada en `0.83.1`. `react-native-screens` está fijado exactamente en `4.25.0` porque versiones 4.26+ requieren React Native 0.84+.
-
-## Instalación
+## Calidad y recursos
 
 ```bash
-npm install
-bundle install
-cd ios
-LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 bundle exec pod install
-cd ..
+npm run check
+npm run android:build
 ```
 
-`nkf` está declarado en el `Gemfile` para que CocoaPods funcione también con Ruby 4, donde `kconv` dejó de formar parte de las gemas por defecto.
-
-## Ejecución
-
-Primero iniciar Metro:
-
-```bash
-npm start
-```
-
-En otra terminal:
-
-```bash
-npm run ios
-# o
-npm run android
-```
-
-En iOS abrir siempre `ios/RealPlazaTasks.xcworkspace`, no el `.xcodeproj`, después de instalar Pods.
-
-### Estado real de validación
-
-- Android: APK debug compilado y MVP ejecutado en emulador ARM64 Android 35. Se verificaron lista, filtros, detalle, estadísticas, carga, error, vacío, sin resultados, modo oscuro y escala de fuente 1.3.
-- iOS: compilado y ejecutado en iPhone 16 Pro Simulator con iOS 18.4 y Xcode 16.3. Se verificaron lista, filtros combinados, detalle, Back nativo, estadísticas, carga, error, vacío, sin resultados, modo oscuro y Dynamic Type.
-- Revalidación de `main`: loading, error y empty de Estadísticas se inspeccionaron en iPhone 16 Plus Simulator con iOS 18.4; al finalizar se restauró el escenario normal.
-
-La app sigue la apariencia del sistema. Para revisar el modo oscuro en iOS, activar `Settings > Display & Brightness > Dark` dentro del simulador; no requiere una configuración propia de la app.
-
-En builds de desarrollo, **Probar estados de la interfaz** permite reproducir los escenarios normal, carga persistente, vacío y error. La carga normal también aparece durante la latencia simulada. Este control no se incluye en Release porque está protegido por `__DEV__`.
-
-### Reproducir los estados simulados
-
-Con el dataset normal de 12 tareas, error y vacío no ocurren espontáneamente. Se incluyen como respuestas configurables del repositorio mock para demostrar cómo reaccionaría la interfaz ante una futura API.
-
-1. Ejecutar la app con `npm run ios` o `npm run android`; ambos comandos generan una build Debug.
-2. Abrir **Probar estados de la interfaz** en la pantalla de tareas.
-3. Elegir el escenario.
-4. Para revisar su variante de Estadísticas, abrir **Estadísticas** sin cambiar el escenario.
-
-| Escenario | Respuesta simulada                | Resultado visible                         |
-| --------- | --------------------------------- | ----------------------------------------- |
-| Normal    | 12 tareas después de la latencia  | Lista y estadísticas completas            |
-| Carga     | Promesa deliberadamente pendiente | Esqueletos persistentes para inspección   |
-| Vacío     | Respuesta exitosa con `[]`        | Empty state, no estadísticas en cero      |
-| Error     | Promesa rechazada                 | Mensaje recuperable y acción de reintento |
-
-Mientras **Carga**, **Vacío** o **Error** estén seleccionados, volver a cargar o reintentar reproduce el escenario. Seleccionar **Normal** restaura el flujo exitoso. En Release no se exponen controles para provocar estados artificiales; la lógica de presentación permanece preparada para respuestas reales del repositorio.
-
-## Calidad
-
-```bash
-npx tsc --noEmit
-npm run lint
-npm test -- --runInBand
-cd android && ./gradlew assembleDebug
-```
-
-Las 25 pruebas Jest cubren contrato mínimo y cobertura del mock, repositorio, reducer, filtros, búsqueda, ordenamiento estable, edición local, estadísticas, sus estados de carga/error/vacío y la composición principal de proveedores y navegación. Gran parte del testing fue asistida por IA y luego revisada manualmente.
-
-## Arquitectura
-
-```mermaid
-flowchart LR
-  UI["Screens y componentes"] --> C["TaskContext"]
-  C --> R["taskReducer"]
-  C --> S["Selectores derivados"]
-  C --> P["TaskRepository"]
-  P --> M["MockTaskRepository"]
-  M --> D["mockTasks"]
-  S --> UI
-```
-
-```text
-src/
-├── app/navigation          # stack y contratos de rutas
-├── features/tasks
-│   ├── domain              # Task y TaskRepository
-│   ├── data                # mocks y repositorio local
-│   ├── state               # reducer, contexto y selectores
-│   ├── components          # piezas visuales reutilizables
-│   └── screens             # lista, detalle y estadísticas
-└── shared                  # tema y utilidades transversales
-```
-
-`Context + useReducer` mantiene explícitos los eventos de un único dominio sin incorporar el coste de una librería global. `TaskRepository` separa la fuente de datos mock de la interfaz y permite ampliar el flujo local sin acoplarlo a las pantallas. Filtros y estadísticas son datos derivados para evitar sincronización y duplicación de estado.
-
-## Modelo mock
-
-El dominio conserva literalmente la estructura mínima requerida por el brief:
-
-```ts
-type Task = {
-  id: string;
-  title: string;
-  description: string;
-  priority: 'low' | 'medium' | 'high';
-  status: 'pending' | 'in_progress' | 'done';
-  createdAt: string;
-};
-```
-
-Los mismos valores de `status` se mantienen en el archivo mock y en los selectores. La traducción a “Pendiente”, “En progreso” y “Completada” ocurre únicamente en la capa de presentación.
-
-El modelo mínimo se extendió con:
-
-- `area`: aporta contexto operativo al listado y detalle.
-- `assignee`: permite identificar responsabilidad sin introducir múltiples sesiones de usuario.
-- `dueAt`: diferencia vencimiento de `createdAt` y permite una lectura temporal útil.
-
-Las fechas se almacenan como ISO 8601 y se formatean en la UI. La combinación `done + high` se deja deliberadamente sin datos para que el estado requerido de filtro sin resultados sea reproducible; aun así, el conjunto cubre por separado todos los estados y prioridades pedidos.
-
-## Documentación
-
-- Skill local para ampliaciones: `.agents/skills/extend-real-plaza-tasks/SKILL.md`
-- [Guía de `feature/plus`](docs/feature-plus-guide.md)
+`npm run check` ejecuta TypeScript, ESLint y 25 pruebas Jest. La guía detallada de ampliaciones está en [`docs/feature-plus-guide.md`](docs/feature-plus-guide.md) y el skill local en [`.agents/skills/extend-real-plaza-tasks/SKILL.md`](.agents/skills/extend-real-plaza-tasks/SKILL.md).
 
 ## Uso de IA
 
